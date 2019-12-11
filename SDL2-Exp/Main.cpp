@@ -10,17 +10,22 @@
 #include "EXP_ELM.h"
 #include "EXP_PLAY.h"
 
+const int WALL = 10;
+const int PLAYER = 10;
 
 int main(int argc, char* argv[]) {
-	GameWindow win = GameWindow("Images\Hello", 1000, 700);
+	GameWindow win = GameWindow("Hello", 1000, 700);
 	Game game(&win);
 	Texture texture(win.ren, "C:/Users/savva/source/repos/SDL2-Exp/SDL2-Exp/Images/hello.jpg");
 
-	EXP_PLAY play(100,100, 200, 200);
+	EXP_PLAY play(600,600, 100, 40, PLAYER);
 	play.setTexture(texture.getTexture());
+	play.setColidable(true);
 
-	EXP_ELM elm(200, 200, 100, 100);
-	EXP_ELM elm2(400, 600, 100, 100);
+	EXP_ELM elm(200, 200, 100, 100, WALL);
+	EXP_ELM elm2(400, 600, 100, 100, WALL);
+	elm.setColidable(true);
+	elm2.setColidable(true);
 
 	elm.setTexture(texture.getTexture());
 	elm2.setColor(155, 133, 0, 255);

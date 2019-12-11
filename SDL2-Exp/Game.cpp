@@ -4,46 +4,38 @@
 
 Game::Game(GameWindow* win) {
 	this->win = win;
-
+	EntityManager manager;
 }
 
 Game::~Game() {
-	elements.clear();
+	manager.~EntityManager();
 	win->~GameWindow();
 }
 
 void Game::setPlayer(PlayableEntity* player){
-	this->player = player;
+	manager.setPlayer(player);
 }
 
-bool Game::addElement(Element* elm){
-	elements.push_back(elm);
-	return false;
+void Game::addElement(Element* elm){
+	manager.addElement(elm);
 }
 
-bool Game::removeElement(Element* comp){
-	
-	for (int i = 0; i < elements.size() / sizeof(Element); i++) {
-		if (elements.at(i) == comp) {
-			elements.erase(elements.begin() + i);
-		}
-	}
-	return false;
+void Game::removeElement(Element* elm){
+	manager.removeElement(elm);
 }
 
 void Game::update() {
-	
+	manager.updateElements();
 }
 
 void Game::draw() {
 	SDL_SetRenderDrawColor(win->ren, 0, 0, 0, 255);
 	SDL_RenderClear(win->ren);
 
-	for (Element* e : elements) {
+	for (Element* e : manager.getEntities()) {
 		e->draw(win->ren);
 	}
-	player->draw(win->ren);
-
+	
 	SDL_RenderPresent(win->ren);
 }
 
@@ -57,23 +49,18 @@ void Game::run(int maxFPS) {
 		SDL_Event event;
 
 		while (SDL_PollEvent(&event)) {
+
 			switch (event.type) {
-			case SDL_KEYDOWN:
-				player->keyDown(event.key.keysym.sym);
-				std::cout << "he";
-				break;
 			case SDL_QUIT: 
 				run = false; 
 				break;
+			default:
+				manager.triggerEvent(event);
 			}
 		}
-		
 		update();
 		draw();
 		
-
-
-
 		int delay = startTime - SDL_GetTicks();
 		if (delay > 0)
 			SDL_Delay(delay);

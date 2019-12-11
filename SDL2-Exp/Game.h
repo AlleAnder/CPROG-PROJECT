@@ -5,6 +5,7 @@
 #include "SDL.h"
 #include "GameWindow.h"
 #include "PlayableEntity.h"
+#include "EntityManager.h"
 
 
 
@@ -12,9 +13,9 @@ class Game
 {
 private:
 
-	std::vector<Element*> elements;
+	
 	GameWindow* win;
-	PlayableEntity* player;
+	EntityManager manager;
 	
 	
 	void update();
@@ -27,10 +28,10 @@ public:
 	Game(GameWindow* win);
 	~Game();
 
-	bool setMap(Map* map);
+	void setMap(Map* map) {/*IMPLEMENT THIS LATER*/};
 	void setPlayer(PlayableEntity* player);
-	bool addElement(Element* comp);
-	bool removeElement(Element* comp);
+	void addElement(Element* elm);
+	void removeElement(Element* elm);
 
 	
 

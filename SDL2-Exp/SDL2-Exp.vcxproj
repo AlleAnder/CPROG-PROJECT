@@ -136,7 +136,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DynamicElement.cpp" />
     <ClCompile Include="Element.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="EXP_ELM.cpp" />
@@ -152,7 +151,6 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DynamicElement.h" />
     <ClInclude Include="Element.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EXP_ELM.h" />

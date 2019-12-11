@@ -1,7 +1,7 @@
 #include "Element.h"
 
 
-Element::Element(int x, int y, int w, int h) {
+Element::Element(int x, int y, int w, int h, int ELEMENT_ID) : ELEMENT_ID(ELEMENT_ID) {
 	SDL_Rect rect = { x, y, w, h };
 	this->rect = rect;
 
@@ -33,6 +33,10 @@ void Element::setColor(int r, int g, int b, int a) {
 	this->g = g;
 	this->b = b;
 	this->a = a;
+}
+
+SDL_Rect* Element::getRect(){
+	return &rect;
 }
 
 void Element::setTexture(SDL_Texture* texture) {

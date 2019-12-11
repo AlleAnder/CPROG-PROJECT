@@ -9,7 +9,7 @@ public:
 
 protected:
 
-	Sprite(int x, int y, int w, int h) : Element(x, y, w, h) {};
+	Sprite(int x, int y, int w, int h, int ELEMENT_ID) : Element(x, y, w, h, ELEMENT_ID) {};
 	~Sprite() {};
 
 private:

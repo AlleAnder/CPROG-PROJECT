@@ -15,7 +15,4 @@ public:
 
 	SDL_Texture* getTexture();
 
-
-
 };
-

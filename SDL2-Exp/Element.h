@@ -11,12 +11,10 @@ public:
 
 	void moveToNew(int x, int y);
 	void moveFromCurrent(int x, int y);
-	void setImage(SDL_Renderer* ren, const char* path);
+	void setTexture(SDL_Texture* texture);
 	void setColor(int r, int g, int b, int a);
 
-	~Element() {
-		SDL_DestroyTexture(texture);
-	};
+	~Element() {};
 
 protected:
 

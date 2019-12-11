@@ -146,8 +146,10 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="NPC.cpp" />
     <ClCompile Include="PlayableEntity.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DynamicElement.h" />
@@ -159,8 +161,10 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="PlayableEntity.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

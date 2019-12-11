@@ -6,8 +6,6 @@ public:
 	EXP_ELM(int x, int y, int w, int h) : Element(x, y, w, h) {};
 	~EXP_ELM();
 
-	
-	void draw(SDL_Renderer* ren);
 
 private:
 

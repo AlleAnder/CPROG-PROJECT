@@ -13,12 +13,13 @@ void Element::moveFromCurrent(int x, int y) {
 
 }
 
-void Element::draw(SDL_Renderer* ren){
+void Element::draw(SDL_Renderer* ren) {
 	if (texture == NULL) {
 		SDL_SetRenderDrawColor(ren, r, g, b, a);
 		SDL_RenderFillRect(ren, &rect);
 		SDL_RenderDrawRect(ren, &rect);
-	}else
+	}
+	else
 		SDL_RenderCopy(ren, texture, NULL, &rect);
 }
 
@@ -34,14 +35,6 @@ void Element::setColor(int r, int g, int b, int a) {
 	this->a = a;
 }
 
-void Element::setImage(SDL_Renderer* ren, const char* path) {
-	SDL_Surface* surf = IMG_Load(path);
-	if (surf == NULL)
-		std::cout << "Could not load image!";
-	else {
-		this->texture = SDL_CreateTextureFromSurface(ren, surf);
-		SDL_FreeSurface(surf);
-		if(texture == NULL)
-			std::cout << "Could not create texture from image!";
-	}
+void Element::setTexture(SDL_Texture* texture) {
+	this->texture = texture;
 }

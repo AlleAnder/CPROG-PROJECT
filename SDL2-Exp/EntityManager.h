@@ -2,6 +2,7 @@
 #include <vector>
 #include "Element.h"
 #include "PlayableEntity.h"
+#include "Vector.h"
 
 class EntityManager
 {
@@ -16,8 +17,10 @@ public:
 	EntityManager();
 	~EntityManager();
 
+	bool directionCollide(SDL_Rect* rect, Vector* vec);
+
 private:
-	PlayableEntity* player = NULL;
+	std::vector<PlayableEntity*> players;
 	std::vector<Element*> elements;
 
 	bool rectsCollide(SDL_Rect* r1, SDL_Rect* r2);

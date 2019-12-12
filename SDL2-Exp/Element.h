@@ -9,8 +9,8 @@ public:
 
 	virtual void draw(SDL_Renderer* ren);
 
-	void moveToNew(int x, int y);
-	void moveFromCurrent(int x, int y);
+	virtual void moveToNew(int x, int y);
+	virtual void moveFromCurrent(int x, int y);
 	void setTexture(SDL_Texture* texture);
 	void setColor(int r, int g, int b, int a);
 	void setColidable(bool colidable) { this->colidable = colidable; };

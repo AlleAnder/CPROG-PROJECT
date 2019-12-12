@@ -5,7 +5,8 @@ EntityManager::~EntityManager() {
 }
 
 void EntityManager::setPlayer(PlayableEntity* player) {
-	this->player = player;
+	player->setCollideCheck(&directionCollide);
+	players.push_back(player);
 	elements.push_back(player);
 }
 
@@ -74,6 +75,11 @@ bool EntityManager::rectsCollide(SDL_Rect* r1, SDL_Rect* r2) {
 		r1->y + r1->h >= r2->y &&
 		r2->y + r2->h >= r1->y)
 	return true;
+	return false;
+}
+
+bool EntityManager::directionCollide(SDL_Rect* rect, Vector* vec)
+{
 	return false;
 }
 

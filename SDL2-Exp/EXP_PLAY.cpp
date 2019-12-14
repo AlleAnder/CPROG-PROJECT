@@ -4,16 +4,16 @@ void EXP_PLAY::keyDown(SDL_Keycode kc)
 {
 	switch (kc) {
 	case SDLK_w:
-		this->moveFromCurrent(0,-10);
+		this->changeVectors(0,-1);
 		break;
 	case SDLK_a:
-		this->moveFromCurrent(-10, 0);
+		this->changeVectors(-1, 0);
 		break;
 	case SDLK_s:
-		this->moveFromCurrent(0,10);
+		this->changeVectors(0,1);
 		break;
 	case SDLK_d:
-		this->moveFromCurrent(10,0);
+		this->changeVectors(1,0);
 		break;
 	}
 }

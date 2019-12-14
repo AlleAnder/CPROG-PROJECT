@@ -24,17 +24,11 @@ void Game::removeElement(Element* elm){
 	manager.removeElement(elm);
 }
 
-void Game::update() {
-	manager.updateElements();
-}
-
 void Game::draw() {
 	SDL_SetRenderDrawColor(win->ren, 0, 0, 0, 255);
 	SDL_RenderClear(win->ren);
 
-	for (Element* e : manager.getEntities()) {
-		e->draw(win->ren);
-	}
+	manager.updateElements(win->ren);
 	
 	SDL_RenderPresent(win->ren);
 }
@@ -58,7 +52,7 @@ void Game::run(int maxFPS) {
 				manager.triggerEvent(event);
 			}
 		}
-		update();
+		
 		draw();
 		
 		int delay = startTime - SDL_GetTicks();

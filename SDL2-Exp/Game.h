@@ -16,9 +16,7 @@ private:
 	
 	GameWindow* win;
 	EntityManager manager;
-	
-	
-	void update();
+
 	void draw();
 
 

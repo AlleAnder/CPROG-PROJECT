@@ -18,20 +18,29 @@ int main(int argc, char* argv[]) {
 	Game game(&win);
 	Texture texture(win.ren, "C:/Users/savva/source/repos/SDL2-Exp/SDL2-Exp/Images/hello.jpg");
 
-	EXP_PLAY play(600,600, 100, 40, PLAYER);
+	EXP_PLAY play(600,300, 100, 40, PLAYER);
 	play.setTexture(texture.getTexture());
 	play.setColidable(true);
+	play.setMaxSpeed(20);
 
-	EXP_ELM elm(200, 200, 100, 100, WALL);
-	EXP_ELM elm2(400, 600, 100, 100, WALL);
+	EXP_ELM elm(0, 600, 1000, 100, WALL);
+	
 	elm.setColidable(true);
-	elm2.setColidable(true);
+
+	EXP_ELM elm3(700, 200, 100, 100, WALL);
+	EXP_ELM elm4(0, 0, 100, 100, WALL);
+	elm3.setColidable(true);
+	elm4.setColidable(true);
 
 	elm.setTexture(texture.getTexture());
-	elm2.setColor(155, 133, 0, 255);
+
+	elm3.setColor(155, 133, 0, 255);
+	elm4.setColor(155, 133, 0, 255);
 
 	game.addElement(&elm);
-	game.addElement(&elm2);
+
+	game.addElement(&elm3);
+	game.addElement(&elm4);
 	game.setPlayer(&play);
 
 	game.run(30);

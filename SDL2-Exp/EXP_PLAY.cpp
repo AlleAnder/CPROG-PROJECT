@@ -3,21 +3,29 @@
 void EXP_PLAY::keyDown(SDL_Keycode kc)
 {
 	switch (kc) {
+	
 	case SDLK_w:
-		this->changeVectors(0,-1);
+		if (vect.vY > -5)
+		
+		this->changeVectors(0,-2);
 		break;
 	case SDLK_a:
-		this->changeVectors(-1, 0);
+		if (vect.vX > -5)
+			
+		this->changeVectors(-2, 0);
 		break;
 	case SDLK_s:
-		this->changeVectors(0,1);
+		if (vect.vY < 5)
+		this->changeVectors(0,2);
 		break;
 	case SDLK_d:
-		this->changeVectors(1,0);
+		if (vect.vX < 5)
+		this->changeVectors(2,0);
+		break;
+	case SDLK_SPACE:
+		if(colliding)
+		this->changeVectors(0, -10);
 		break;
 	}
 }
 
-void EXP_PLAY::keyUp(SDL_Keycode kc)
-{
-}

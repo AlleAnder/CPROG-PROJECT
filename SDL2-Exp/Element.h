@@ -18,12 +18,14 @@ public:
 	void setColor(int r, int g, int b, int a);
 	void setColidable(bool colidable) { this->collidable = colidable; }
 	void setMaxSpeed(int PPF) { vect.setMax(PPF); }
-	void setElasticity(double elasticity) { this->elasticity = elasticity; }
+
+	void setElasticity(double elasticity);
+	double getElasticity() { return this->elasticity; }
 
 	SDL_Rect* getMovedRect() { return &movedRect; }
 	SDL_Rect* getRect() { return &rect; }
 	void setMovedRect() { rect = movedRect; }
-	void resetMovedRect() { this->movedRect = rect; }
+	void resetMovedRect() { movedRect = rect; }
 
 	void changeVectors(double x, double y);
 	double getXVector() { return vect.vX; }
@@ -33,6 +35,8 @@ public:
 
 	const int ELEMENT_ID;
 	bool collidable = false;
+	bool colliding = false;
+	
 
 	virtual void mouseDown(Uint8 e) {};
 	virtual void mouseUp(Uint8 e) {};
@@ -46,13 +50,14 @@ protected:
 	
 	SDL_Texture* texture = nullptr;
 	SDL_Rect rect;
+	Vector vect;
 	int r = 0, g = 0, b = 0, a = 255;
+	double elasticity = 1;
+	
 	
 
 private:
 
-	double elasticity;
-	Vector vect;
 	SDL_Rect movedRect; //For collision detection
 
 	Element(const Element& c) = delete;

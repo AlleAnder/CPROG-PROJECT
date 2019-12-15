@@ -18,9 +18,11 @@ public:
 	~EntityManager();
 
 private:
-	std::vector<PlayableEntity*> players;
+
+	PlayableEntity* player;
 	std::vector<Element*> elements;
 
 	int rectsCollide(const SDL_Rect* r1, const SDL_Rect* r2);
+	int windowCollide(const SDL_Rect* r1);
 };
 

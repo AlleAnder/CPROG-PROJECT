@@ -5,7 +5,7 @@ EntityManager::~EntityManager() {
 }
 
 void EntityManager::setPlayer( PlayableEntity* player) {
-	players.push_back(player);
+	this->player = player;
 	elements.push_back(player);
 }
 
@@ -54,36 +54,48 @@ int EntityManager::rectsCollide(const SDL_Rect* r1, const SDL_Rect* r2) {
 		r2->x + r2->w >= r1->x &&
 		r1->y + r1->h >= r2->y &&
 		r2->y + r2->h >= r1->y)
+		if ((r1->x + r1->w <= r2->x || r2->x + r2->w <= r1->x) && (r1->y + r1->h >= r2->y || r2->y + r2->h >= r1->y))
 			return 1;
-		/*Find out how to find out what surface colided w what
-		and return 1 or 2 depending*/
-	return false;
+		else
+			return 2;
+	return 0;
 }
+
+int EntityManager::windowCollide(const SDL_Rect* r1){
+	
+	return 0;
+}
+ 
+
+
 
 void EntityManager::updateElements(SDL_Renderer* ren) {
 	for (Element* e : elements) {
+		e->colliding = false;
 		if (e->collidable) {
-			e->changeVectors(0, 1);
-			for (int ii = 0; ii < elements.size(); ii++) {
-
-				int colDir = rectsCollide(e->getRect(), elements.at(ii)->getRect()) && e != elements.at(ii);
-				if (colDir) {
-					e->changeVectors(0 - e->getXVector() * 1.85, 0 - e->getYVector() * 1.85);
-					std::cout << "COLLISIO\n" << colDir;
-				}
-				else if (colDir == 2) {
-					e->changeVectors(0 - e->getXVector() * 1.85, 0 - e->getYVector() * 1.85);
-					std::cout << "COLLISION\n" << colDir;
-				}
-				else {
-					std::cout << "NO COLLISION\n" << colDir;
-					e->setMovedRect();
+			int colDir = 0;
+			e->changeVectors(0, 0.32);
+			bool colFound = false;
+			for (Element* e2 : elements) {
+				if (e != e2 && !colFound) {
+					colDir = rectsCollide(e->getMovedRect(), e2->getRect());
+					
+					if (colDir == 1) {
+						//e->resetMovedRect();
+						e->changeVectors(0 - e->getXVector() * e2->getElasticity(), 0 - e->getYVector() * 0.5);
+						std::cout << colDir;
+					}
+					else if (colDir == 2) {
+						//e->resetMovedRect();
+						e->changeVectors(0 - e->getXVector() * 0.5, 0 - e->getYVector() * e2->getElasticity());
+						std::cout <<  e2->getElasticity();
+					}
 				}
 			}
-		}
-		else
-			e->setMovedRect();
 
+		}
+		
+		e->setMovedRect();
 		e->tick();
 		e->draw(ren);
 	}

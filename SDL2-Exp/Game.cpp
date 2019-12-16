@@ -5,6 +5,7 @@
 Game::Game(GameWindow* win) {
 	this->win = win;
 	EntityManager manager;
+
 }
 
 Game::~Game() {

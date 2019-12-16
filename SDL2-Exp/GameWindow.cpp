@@ -20,6 +20,7 @@ GameWindow::~GameWindow() {
 bool GameWindow::SetWindow(const char* name, int sizeX, int sizeY){
 	SDL_DestroyWindow(win);
 	SDL_DestroyRenderer(ren);
+	
 
 	win = SDL_CreateWindow(name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, sizeX, sizeY, SDL_WINDOW_SHOWN);
 	if (win == nullptr) {

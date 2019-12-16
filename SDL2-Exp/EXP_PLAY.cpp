@@ -23,8 +23,9 @@ void EXP_PLAY::keyDown(SDL_Keycode kc)
 		this->changeVectors(2,0);
 		break;
 	case SDLK_SPACE:
-		if(colliding)
+		
 		this->changeVectors(0, -10);
+		
 		break;
 	}
 }

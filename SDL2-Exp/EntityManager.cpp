@@ -58,49 +58,77 @@ int EntityManager::rectsCollide(const SDL_Rect* r1, const SDL_Rect* r2) {
 			return 1;
 		else
 			return 2;
+	
 	return 0;
 }
 
 int EntityManager::windowCollide(const SDL_Rect* r1){
-	
+	if (r1->x + r1->w > screenX || r1->x < 0)
+		return 1;
+	else if (r1->y + r1->h > screenY || r1->y < 0)
+		return 2;
 	return 0;
 }
  
 
-
-
 void EntityManager::updateElements(SDL_Renderer* ren) {
 	for (Element* e : elements) {
-		e->colliding = false;
+		bool colFound = false;
+		e->changeVectors(0, 0.32);
+
 		if (e->collidable) {
-			int colDir = 0;
-			e->changeVectors(0, 0.32);
-			bool colFound = false;
+
+			if (windowCollide(e->getMovedRect()) == 1) {
+					e->resetMovedRect();
+				e->changeVectors(0 - e->getXVector() * 1.5, 0 - e->getYVector() * 0.1);
+				colFound = true;
+			}
+			else if (windowCollide(e->getMovedRect()) == 2) {
+				e->resetMovedRect();
+				e->changeVectors(0 - e->getXVector() * 0.1, 0 - e->getYVector() * 1.5);
+				colFound = true;
+			}
+
 			for (Element* e2 : elements) {
-				if (e != e2 && !colFound) {
-					colDir = rectsCollide(e->getMovedRect(), e2->getRect());
+
+				if (colFound)
+					break;
+
+				if (e != e2) {
+					int colDir = rectsCollide(e->getMovedRect(), e2->getRect());
 					
 					if (colDir == 1) {
 						//e->resetMovedRect();
+						e2->changeVectors(e->getXVector() / e2->getElasticity(), e->getYVector() * 0.5);
 						e->changeVectors(0 - e->getXVector() * e2->getElasticity(), 0 - e->getYVector() * 0.5);
-						std::cout << colDir;
+						colFound = true;
+					
 					}
 					else if (colDir == 2) {
 						//e->resetMovedRect();
+						e2->changeVectors(e->getXVector() * 0.5, e->getYVector() / e2->getElasticity());
 						e->changeVectors(0 - e->getXVector() * 0.5, 0 - e->getYVector() * e2->getElasticity());
-						std::cout <<  e2->getElasticity();
+						colFound = true;
 					}
 				}
+				
 			}
 
+			
 		}
+
 		
-		e->setMovedRect();
-		e->tick();
+		if(!colFound)
+			e->setMovedRect();
 		e->draw(ren);
+		e->tick();
+		
 	}
 
+	
+
 }
+
 
 EntityManager::EntityManager() {
 

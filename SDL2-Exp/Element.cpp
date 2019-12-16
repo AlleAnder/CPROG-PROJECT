@@ -59,6 +59,6 @@ void Element::moveFromCurrent(int x, int y) {
 }
 
 void Element::moveToNew(int x, int y) {
-	this->movedRect.x = x;
-	this->movedRect.y = y;
+	this->rect.x = x;
+	this->rect.y = y;
 }

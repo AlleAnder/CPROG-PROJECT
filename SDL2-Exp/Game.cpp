@@ -3,8 +3,9 @@
 
 Game::Game(GameWindow* win, PhysicsHandler* physics, Background* background) {
 	this->win = win;
-	EntityManager manager(physics);
+	EntityManager manager; //HAND CAN DO THIS BUT NOT THIS??? manager(physics) , , , THIS IS Y I SET PHYSICS 2 LINES DOWN
 	this->background = background;
+	manager.setPhysics(physics);
 
 }
 

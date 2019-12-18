@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
 	Background back(screenX, screenY);
 	
 	Game game(&win, &physics, &back);
-	Texture texture(win.ren, "C:/Users/savva/source/repos/SDL2-Exp/SDL2-Exp/Images/hello.jpg");
+	Texture texture(win.ren, "C:/Users/savva/source/repos/CPROG-PROJECT/SDL2-Exp/Images/hello.jpg");
 
 	back.setTexture(texture.getTexture());
 

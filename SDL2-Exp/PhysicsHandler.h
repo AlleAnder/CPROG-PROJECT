@@ -1,9 +1,9 @@
 #pragma once
 #include "Element.h"
 
-struct PhysicsHandler
+class PhysicsHandler
 {
-
+public:
 	PhysicsHandler(double gravity, int screenX, int screenY);
 	~PhysicsHandler() {};
 

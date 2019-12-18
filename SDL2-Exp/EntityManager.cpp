@@ -5,10 +5,11 @@ EntityManager::~EntityManager() {
 	elements.clear();
 }
 
-EntityManager::EntityManager(PhysicsHandler* physics) {
-	this->physics = physics;
+EntityManager::EntityManager() {
 
 }
+
+
 
 void EntityManager::setPlayer( PlayableEntity* player) {
 	this->player = player;
@@ -81,4 +82,6 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 		
 	}
 }
+
+
 

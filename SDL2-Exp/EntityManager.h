@@ -15,8 +15,9 @@ public:
 	std::vector<Element*> getEntities();
 	void triggerEvent(const SDL_Event event);
 	void updateElements(SDL_Renderer* ren);
+	void setPhysics(PhysicsHandler* physics) { this->physics = physics; };
 
-	EntityManager(PhysicsHandler* physics);
+	EntityManager();
 	~EntityManager();
 
 private:

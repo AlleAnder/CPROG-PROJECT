@@ -6,18 +6,25 @@
 #include "GameWindow.h"
 #include "Game.h"
 #include "Texture.h"
-#include <stdlib.h>  
+#include <stdlib.h> 
+#include "Background.h"
 
 #include "EXP_ELM.h"
 #include "EXP_PLAY.h"
 
 const int WALL = 10;
 const int PLAYER = 10;
+const int screenX = 1000, screenY = 700;
 
 int main(int argc, char* argv[]) {
-	GameWindow win = GameWindow("Hello", 1000, 700);
-	Game game(&win);
+	GameWindow win("Hello", screenX, screenY);
+	PhysicsHandler physics(9.82, screenX, screenY);
+	Background back(screenX, screenY);
+	
+	Game game(&win, &physics, &back);
 	Texture texture(win.ren, "C:/Users/savva/source/repos/SDL2-Exp/SDL2-Exp/Images/hello.jpg");
+
+	back.setTexture(texture.getTexture());
 
 	EXP_PLAY play(600,300, 60, 40, PLAYER);
 	play.setTexture(texture.getTexture());

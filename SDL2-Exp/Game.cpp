@@ -1,14 +1,15 @@
 #include "Game.h"
-#include "GameWindow.h"
 
 
-Game::Game(GameWindow* win) {
+Game::Game(GameWindow* win, PhysicsHandler* physics, Background* background) {
 	this->win = win;
-	EntityManager manager;
+	EntityManager manager(physics);
+	this->background = background;
 
 }
 
 Game::~Game() {
+	background->~Background();
 	manager.~EntityManager();
 	win->~GameWindow();
 }
@@ -29,6 +30,7 @@ void Game::draw() {
 	SDL_SetRenderDrawColor(win->ren, 0, 0, 0, 255);
 	SDL_RenderClear(win->ren);
 
+	background->draw(win->ren);
 	manager.updateElements(win->ren);
 	
 	SDL_RenderPresent(win->ren);

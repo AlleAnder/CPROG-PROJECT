@@ -4,6 +4,7 @@
 #include "PlayableEntity.h"
 #include "Vector.h"
 #include <iostream>
+#include "PhysicsHandler.h"
 
 class EntityManager
 {
@@ -14,20 +15,17 @@ public:
 	std::vector<Element*> getEntities();
 	void triggerEvent(const SDL_Event event);
 	void updateElements(SDL_Renderer* ren);
-	
 
-	EntityManager();
+	EntityManager(PhysicsHandler* physics);
 	~EntityManager();
 
 private:
 	int screenX = 1000;
 	int screenY = 700;
 
-	PlayableEntity* player;
+	PlayableEntity* player = NULL;
 	std::vector<Element*> elements;
+	PhysicsHandler* physics;
 
-	int rectsCollide(const SDL_Rect* r1, const SDL_Rect* r2);
-	int windowCollide(const SDL_Rect* r1);
-	
 };
 

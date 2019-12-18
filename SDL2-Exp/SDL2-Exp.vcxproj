@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="Element.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="EXP_ELM.cpp" />
@@ -146,12 +147,14 @@
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="PhysicsHandler.cpp" />
     <ClCompile Include="PlayableEntity.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Background.h" />
     <ClInclude Include="Element.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EXP_ELM.h" />
@@ -161,6 +164,7 @@
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="NPC.h" />
+    <ClInclude Include="PhysicsHandler.h" />
     <ClInclude Include="PlayableEntity.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />

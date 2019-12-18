@@ -1,32 +1,28 @@
 #pragma once
 #include <vector>
-#include "Map.h";
-#include "Element.h";
+#include "Element.h"
 #include "SDL.h"
 #include "GameWindow.h"
 #include "PlayableEntity.h"
 #include "EntityManager.h"
+#include "Background.h"
+#include "GameWindow.h"
 
 
-
-class Game
-{
+class Game{
 private:
-
 	
 	GameWindow* win;
 	EntityManager manager;
-
+	Background* background;
 	void draw();
-
 
 public:
 	void run(int maxFPS);
 
-	Game(GameWindow* win);
+	Game(GameWindow* win, PhysicsHandler* physics, Background* background);
 	~Game();
 
-	void setMap(Map* map) {/*IMPLEMENT THIS LATER*/};
 	void setPlayer(PlayableEntity* player);
 	void addElement(Element* elm);
 	void removeElement(Element* elm);

@@ -13,7 +13,7 @@ class Game{
 private:
 	
 	GameWindow* win;
-	EntityManager manager;
+	EntityManager* manager;
 	Background* background;
 	void draw();
 
@@ -26,6 +26,9 @@ public:
 	void setPlayer(PlayableEntity* player);
 	void addElement(Element* elm);
 	void removeElement(Element* elm);
+
+	void addLayer(Layer* lay);
+	void removeLayer(Layer* lay);
 
 	
 

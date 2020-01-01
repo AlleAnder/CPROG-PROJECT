@@ -2,14 +2,19 @@
 
 EntityManager::~EntityManager() {
 	physics->~PhysicsHandler();
+
+	for (int i = 0; i < elements.size(); i++)
+		elements.at(i)->~Element();
 	elements.clear();
+
+	for (int i = 0; i < layers.size(); i++)
+		layers.at(i)->~Layer();
+	layers.clear();
 }
 
-EntityManager::EntityManager() {
-
+EntityManager::EntityManager(PhysicsHandler* physics) {
+	this->physics = physics;
 }
-
-
 
 void EntityManager::setPlayer( PlayableEntity* player) {
 	this->player = player;
@@ -22,15 +27,36 @@ void EntityManager::addElement( Element* elm) {
 }
 
 void EntityManager::removeElement(const Element* comp) {
-	for (int i = 0; i < elements.size() / sizeof(Element); i++) {
+	for (int i = 0; i < elements.size(); i++) {
 		if (elements.at(i) == comp) {
+			elements.at(i)->~Element();
 			elements.erase(elements.begin() + i);
+		}
+	}
+}
+
+void EntityManager::addLayer(Layer* layer){
+	layers.push_back(layer);
+}
+
+void EntityManager::removeLayer(Layer* layer){
+	for (int i = 0; i < layers.size(); i++) {
+		if (layers.at(i) == layer) {
+			layers.at(i)->~Layer();
+			layers.erase(layers.begin() + i);
 		}
 	}
 }
 
 std::vector<Element*> EntityManager::getEntities() {
 	return elements;
+}
+
+bool EntityManager::outOfBounds(Element* e){
+	if (e->getRect()->x > screenX + 10 || e->getRect()->x + e->getRect()->w < -10 ||
+		e->getRect()->y > screenY + 10 || e->getRect()->y + e->getRect()->h < -10)
+		return true;
+	return false;
 }
 
 void EntityManager::triggerEvent(SDL_Event event) {
@@ -57,30 +83,57 @@ void EntityManager::triggerEvent(SDL_Event event) {
 }
 
 void EntityManager::updateElements(SDL_Renderer* ren) {
+	std::cout << "amt of elements: " << elements.size() << std::endl;
+
+	for (Layer* l : layers) {
+		l->moveLayer(-player->getXVector() * l->getMovementSpeed(), -player->getYVector() * l->getMovementSpeed());
+		l->drawLayer(ren);
+	}
+
+	bool colFound = false;
+
 	for (Element* e : elements) {
-		bool colFound = false;
+		
 		physics->applyGravityVector(e);
-
 		if (e->collidable) {
-			if (physics->windowElementCollide(e))
-				colFound = true;
-
+			if(e == player)
+				if (physics->windowElementCollide(e))
+					colFound = true;
 			for (Element* e2 : elements) {
 				if (colFound)	
 					break;
 				if (physics->elementsCollide(e, e2))
 					colFound = true;
-
 			}
+
+			for (Layer* l : layers) {
+				if (l->isCollidable() && !colFound) {
+					for(Element* el : l->elements)
+						if (physics->elementsCollide(e, el))
+							colFound = true;
+				}
+			}
+
 		}
 
+		player->resetMovedRect();
 		
-		if(!colFound)
-			e->setMovedRect();
+		if (!colFound) { 
+			e->setMovedRect(); 
+		}
 		e->draw(ren);
 		e->tick();
-		
+
+		if (outOfBounds(e))
+			removeElement(e);
 	}
+
+	if(!colFound)
+		for (Layer* l : layers) 
+			l->setMovedLayer();
+		
+
+	
 }
 
 

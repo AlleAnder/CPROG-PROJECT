@@ -8,6 +8,7 @@
 #include "Texture.h"
 #include <stdlib.h> 
 #include "Background.h"
+#include "Layer.h"
 
 #include "EXP_ELM.h"
 #include "EXP_PLAY.h"
@@ -24,30 +25,41 @@ int main(int argc, char* argv[]) {
 	Game game(&win, &physics, &back);
 	Texture texture(win.ren, "C:/Users/savva/source/repos/CPROG-PROJECT/SDL2-Exp/Images/hello.jpg");
 
-	back.setTexture(texture.getTexture());
+
+
+
+	back.setColor(100,100,0,255);
 
 	EXP_PLAY play(600,300, 60, 40, PLAYER);
 	play.setTexture(texture.getTexture());
-	play.setColidable(true);
+	play.collidable = true;
 	play.setMaxSpeed(100);
+	
 
+	Layer lay = Layer(&play);
+	lay.addElement(new EXP_ELM(rand() % 1000, rand() % 700, 100, 100, WALL));
+	lay.addElement(new EXP_ELM(rand() % 1000, rand() % 700, 10, 100, WALL));
+	lay.addElement(new EXP_ELM(rand() % 1000, rand() % 700, 100, 10, WALL));
+	lay.addElement(new EXP_ELM(0, screenY - 100, screenX, 100, WALL));
+	game.addLayer(&lay);
+	lay.setColidable(true);
+	
 
 	std::vector<Element*> elements;
 	for (int i = 0; i < 1; i++) {
-		elements.push_back(new EXP_ELM(rand() % 900, rand() % 600, 100, 100, WALL));
+		elements.push_back(new EXP_ELM(rand() % 1000, rand() % 700, 10, 10, WALL));
 	}
 	for(Element* e : elements){
-		e->setColidable(true);
+		e->collidable = true;
 		e->setMaxSpeed(100);
 		e->setElasticity(0);
 		e->setColor(155, 133, 0, 255);
 		e->setTexture(texture.getTexture());
 		game.addElement(e);
 	}
-
+	elements.clear();
 	
 	game.setPlayer(&play);
-
 
 
 	game.run(30);

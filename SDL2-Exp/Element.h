@@ -9,14 +9,13 @@ class Element
 public:
 
 	virtual void draw(SDL_Renderer* ren);
-	void tick();
+	virtual void tick() {};
 
 	virtual void moveToNew(int x, int y);
 	virtual void moveFromCurrent(int x, int y);
 
 	void setTexture(SDL_Texture* texture) { this->texture = texture; }
 	void setColor(int r, int g, int b, int a);
-	void setColidable(bool colidable) { this->collidable = colidable; }
 	void setMaxSpeed(int PPF) { vect.setMax(PPF); }
 
 	void setElasticity(double elasticity);
@@ -34,9 +33,9 @@ public:
 	~Element();
 
 	const int ELEMENT_ID;
+
 	bool collidable = false;
-	bool colliding = false;
-	
+	virtual void onColide(Element* colWith) { std::cout << ELEMENT_ID << std::endl; };
 
 	virtual void mouseDown(Uint8 e) {};
 	virtual void mouseUp(Uint8 e) {};

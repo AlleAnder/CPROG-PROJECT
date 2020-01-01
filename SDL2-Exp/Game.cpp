@@ -3,28 +3,34 @@
 
 Game::Game(GameWindow* win, PhysicsHandler* physics, Background* background) {
 	this->win = win;
-	EntityManager manager; //HAND CAN DO THIS BUT NOT THIS??? manager(physics) , , , THIS IS Y I SET PHYSICS 2 LINES DOWN
+	manager = new EntityManager(physics);
 	this->background = background;
-	manager.setPhysics(physics);
-
 }
 
 Game::~Game() {
 	background->~Background();
-	manager.~EntityManager();
+	manager->~EntityManager();
 	win->~GameWindow();
 }
 
 void Game::setPlayer(PlayableEntity* player){
-	manager.setPlayer(player);
+	manager->setPlayer(player);
 }
 
 void Game::addElement(Element* elm){
-	manager.addElement(elm);
+	manager->addElement(elm);
 }
 
 void Game::removeElement(Element* elm){
-	manager.removeElement(elm);
+	manager->removeElement(elm);
+}
+
+void Game::addLayer(Layer* lay){
+	manager->addLayer(lay);
+}
+
+void Game::removeLayer(Layer* lay){
+	manager->removeLayer(lay);
 }
 
 void Game::draw() {
@@ -32,7 +38,7 @@ void Game::draw() {
 	SDL_RenderClear(win->ren);
 
 	background->draw(win->ren);
-	manager.updateElements(win->ren);
+	manager->updateElements(win->ren);
 	
 	SDL_RenderPresent(win->ren);
 }
@@ -53,7 +59,7 @@ void Game::run(int maxFPS) {
 				run = false; 
 				break;
 			default:
-				manager.triggerEvent(event);
+				manager->triggerEvent(event);
 			}
 		}
 		

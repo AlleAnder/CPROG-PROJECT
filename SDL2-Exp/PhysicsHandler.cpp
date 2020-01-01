@@ -10,6 +10,10 @@ bool PhysicsHandler::elementsCollide(Element* e, Element* e2){
 	if (e != e2) {
 		int colDir = rectsCollide(e->getMovedRect(), e2->getRect());
 
+		if (colDir != 0) {
+			e->onColide(e2);
+		}
+
 		if (colDir == 1) {
 			//e->resetMovedRect();
 			e2->changeVectors(e->getXVector() / e2->getElasticity(), e->getYVector() * 0.5);
@@ -61,9 +65,9 @@ int PhysicsHandler::rectsCollide(const SDL_Rect* r1, const SDL_Rect* r2){
 }
 
 int PhysicsHandler::windowCollide(const SDL_Rect* r1){
-	if (r1->x + r1->w > 1000 || r1->x < 0)
+	if (r1->x + r1->w > screenX || r1->x < 0)
 		return 1;
-	else if (r1->y + r1->h > 700 || r1->y < 0)
+	else if (r1->y + r1->h > screenY || r1->y < 0)
 		return 2;
 	return 0;
 }

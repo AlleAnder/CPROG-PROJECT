@@ -14,10 +14,6 @@ Element::~Element() {
 	vect.~Vector();
 }
 
-void Element::tick() {
-	changeVectors(0,0);
-}
-
 void Element::draw(SDL_Renderer* ren) {
 	if (texture == NULL) {
 		SDL_SetRenderDrawColor(ren, r, g, b, a);
@@ -52,10 +48,10 @@ void Element::changeVectors(double x, double y){
 }
 
 void Element::moveFromCurrent(int x, int y) {
-	if (vect.maxSpeed > 0) {
+//	if (vect.maxSpeed > 0) {
 		this->movedRect.x = this->rect.x + x;
 		this->movedRect.y = this->rect.y + y;
-	}
+	//}
 }
 
 void Element::moveToNew(int x, int y) {

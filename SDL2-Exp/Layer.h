@@ -18,6 +18,7 @@ public:
 	double getMovementSpeed() { return movementSpeed; };
 
 	virtual void drawLayer(SDL_Renderer* ren);
+	virtual void tickLayer() {};
 
 	void setColidable(bool col);
 
@@ -32,6 +33,6 @@ protected:
 
 private:
 
-	bool collidable = false;
+	bool collidable = false; //This can cause problems when other elements collide with layer, player stops as well, everything freezes
 };
 

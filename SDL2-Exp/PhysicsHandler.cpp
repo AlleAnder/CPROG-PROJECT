@@ -48,7 +48,7 @@ bool PhysicsHandler::windowElementCollide(Element* e){
 }
 
 void PhysicsHandler::applyGravityVector(Element* e){
-	e->changeVectors(0, 9.82/30);
+	e->changeVectors(0, gravity/30);
 }
 
 int PhysicsHandler::rectsCollide(const SDL_Rect* r1, const SDL_Rect* r2){

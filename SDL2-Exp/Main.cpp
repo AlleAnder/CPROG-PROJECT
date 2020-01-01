@@ -19,7 +19,7 @@ const int screenX = 1000, screenY = 700;
 
 int main(int argc, char* argv[]) {
 	GameWindow win("Hello", screenX, screenY);
-	PhysicsHandler physics(9.82, screenX, screenY);
+	PhysicsHandler physics(0, screenX, screenY);
 	Background back(screenX, screenY);
 	
 	Game game(&win, &physics, &back);
@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
 	lay.addElement(new EXP_ELM(rand() % 1000, rand() % 700, 100, 10, WALL));
 	lay.addElement(new EXP_ELM(0, screenY - 100, screenX, 100, WALL));
 	game.addLayer(&lay);
-	lay.setColidable(true);
+
 	
 
 	std::vector<Element*> elements;

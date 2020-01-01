@@ -87,6 +87,7 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 
 	for (Layer* l : layers) {
 		l->moveLayer(-player->getXVector() * l->getMovementSpeed(), -player->getYVector() * l->getMovementSpeed());
+		l->tickLayer();
 		l->drawLayer(ren);
 	}
 
@@ -108,8 +109,8 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 
 			for (Layer* l : layers) {
 				if (l->isCollidable() && !colFound) {
-					for(Element* el : l->elements)
-						if (physics->elementsCollide(e, el))
+					for(Element* e2 : l->elements)
+						if (physics->elementsCollide(e, e2))
 							colFound = true;
 				}
 			}

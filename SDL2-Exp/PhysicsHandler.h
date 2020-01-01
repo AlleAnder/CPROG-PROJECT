@@ -16,7 +16,7 @@ public:
 
 private:
 
-	double gravity, airResistance = 0;
+	double gravity = 0, airResistance = 0;
 	int screenX, screenY;
 
 	int rectsCollide(const SDL_Rect* r1, const SDL_Rect* r2);

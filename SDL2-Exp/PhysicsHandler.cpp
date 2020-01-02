@@ -15,14 +15,14 @@ bool PhysicsHandler::elementsCollide(Element* e, Element* e2){
 		}
 
 		if (colDir == 1) {
-			//e->resetMovedRect();
+			e->resetMovedRect();
 			e2->changeVectors(e->getXVector() / e2->getElasticity(), e->getYVector() * 0.5);
 			e->changeVectors(0 - e->getXVector() * e2->getElasticity(), 0 - e->getYVector() * 0.5);
 			return true;
 
 		}
 		else if (colDir == 2) {
-		//	e->resetMovedRect();
+			e->resetMovedRect();
 			e2->changeVectors(e->getXVector() * 0.5, e->getYVector() / e2->getElasticity());
 			e->changeVectors(0 - e->getXVector() * 0.5, 0 - e->getYVector() * e2->getElasticity());
 			return true;
@@ -35,12 +35,12 @@ bool PhysicsHandler::windowElementCollide(Element* e){
 	int colDir = windowCollide(e->getMovedRect());
 
 	if (colDir == 1) {
-		//e->resetMovedRect();
+		e->resetMovedRect();
 		e->changeVectors(0 - e->getXVector() * 1.5, 0 - e->getYVector() * 0.1);
 		return true;
 	}
 	else if (colDir == 2) {
-		//e->resetMovedRect();
+		e->resetMovedRect();
 		e->changeVectors(0 - e->getXVector() * 0.1, 0 - e->getYVector() * 1.5);
 		return true;
 	}

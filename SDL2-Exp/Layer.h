@@ -14,6 +14,7 @@ public:
 
 	virtual void moveLayer(int x, int y);
 	void setMovedLayer();
+	void setElasticity(int el);
 	void setMovementSpeedToPlayer(int percentage);
 	double getMovementSpeed() { return movementSpeed; };
 

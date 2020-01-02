@@ -25,15 +25,18 @@ void Layer::removeElement(Element* elm){
 }
 
 void Layer::moveLayer(int x, int y){
-	for (Element* e : elements) {
+	for (Element* e : elements) 
 		e->moveFromCurrent(x, y);
-	}
 }
 
 void Layer::setMovedLayer(){
-	for (Element* e : elements) {
+	for (Element* e : elements) 
 		e->setMovedRect();
-	}
+}
+
+void Layer::setElasticity(int el){
+	for (Element* e : elements)
+		e->setElasticity(el);
 }
 
 void Layer::setMovementSpeedToPlayer(int percentage){

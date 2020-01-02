@@ -87,9 +87,6 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="NPC.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Vector.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
@@ -101,6 +98,12 @@
     </ClCompile>
     <ClCompile Include="Layer.cpp">
       <Filter>Source Files\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="EXP_ENEMY.cpp">
+      <Filter>Source Files\EXPERIMENTAL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,9 +140,6 @@
     <ClInclude Include="Texture.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="NPC.h">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Vector.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
@@ -151,6 +151,12 @@
     </ClInclude>
     <ClInclude Include="Layer.h">
       <Filter>Header Files\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EXP_ENEMY.h">
+      <Filter>Header Files\EXPERIMENTAL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

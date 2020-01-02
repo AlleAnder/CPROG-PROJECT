@@ -52,12 +52,12 @@ protected:
 	Vector vect;
 	int r = 0, g = 0, b = 0, a = 255;
 	double elasticity = 1;
-	
-	
+	int ticks = 0;
 
 private:
 
 	SDL_Rect movedRect; //For collision detection
+	
 
 	Element(const Element& c) = delete;
 	const Element& operator= (const Element& c) = delete;

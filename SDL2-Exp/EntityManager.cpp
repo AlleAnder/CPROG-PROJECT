@@ -94,12 +94,31 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 	bool colFound = false;
 
 	for (Element* e : elements) {
-		
+		colFound = false;
+	
 		physics->applyGravityVector(e);
+		if(e != player)
+		e->moveFromCurrent(-player->getXVector(), -player->getYVector());
+
 		if (e->collidable) {
-			if(e == player)
+			//if(e == player)
 				if (physics->windowElementCollide(e))
 					colFound = true;
+
+
+			//THIS IS FOR LAYER COLLISION
+			/*	for (Layer* l : layers) {
+					if (l->isCollidable() && !colFound) {
+						for (Element* e2 : l->elements) {
+							if (colFound)
+								break;
+							if (physics->elementsCollide(e, e2))
+								colFound = true;
+						}
+					}
+				}*/
+
+
 			for (Element* e2 : elements) {
 				if (colFound)	
 					break;
@@ -107,21 +126,18 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 					colFound = true;
 			}
 
-			for (Layer* l : layers) {
-				if (l->isCollidable() && !colFound) {
-					for(Element* e2 : l->elements)
-						if (physics->elementsCollide(e, e2))
-							colFound = true;
-				}
-			}
+			
+
+			
 
 		}
 
+	
 		player->resetMovedRect();
+		if (!colFound)
+			e->setMovedRect();
 		
-		if (!colFound) { 
-			e->setMovedRect(); 
-		}
+
 		e->draw(ren);
 		e->tick();
 
@@ -129,11 +145,9 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 			removeElement(e);
 	}
 
-	if(!colFound)
+	//if(!colFound)
 		for (Layer* l : layers) 
 			l->setMovedLayer();
-		
-
 	
 }
 

@@ -26,6 +26,7 @@ void Game::removeElement(Element* elm){
 }
 
 void Game::addLayer(Layer* lay){
+	lay->setColidable(false);
 	manager->addLayer(lay);
 }
 

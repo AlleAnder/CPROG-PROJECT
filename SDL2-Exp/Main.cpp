@@ -12,6 +12,7 @@
 
 #include "EXP_ELM.h"
 #include "EXP_PLAY.h"
+#include "EXP_ENEMY.h"
 
 const int WALL = 10;
 const int PLAYER = 10;
@@ -24,9 +25,6 @@ int main(int argc, char* argv[]) {
 	
 	Game game(&win, &physics, &back);
 	Texture texture(win.ren, "C:/Users/savva/source/repos/CPROG-PROJECT/SDL2-Exp/Images/hello.jpg");
-
-
-
 
 	back.setColor(100,100,0,255);
 
@@ -41,20 +39,27 @@ int main(int argc, char* argv[]) {
 	lay.addElement(new EXP_ELM(rand() % 1000, rand() % 700, 10, 100, WALL));
 	lay.addElement(new EXP_ELM(rand() % 1000, rand() % 700, 100, 10, WALL));
 	lay.addElement(new EXP_ELM(0, screenY - 100, screenX, 100, WALL));
+	lay.setElasticity(30);
 	game.addLayer(&lay);
 
+	EXP_ENEMY enemy(rand() % 1000, rand() % 700, 60, 40, 11);
+	enemy.setMaxSpeed(1);
+	enemy.collidable = true;
+	enemy.setTarget(&play);
+	game.addElement(&enemy);
 	
 
 	std::vector<Element*> elements;
 	for (int i = 0; i < 1; i++) {
-		elements.push_back(new EXP_ELM(rand() % 1000, rand() % 700, 10, 10, WALL));
+		elements.push_back(new EXP_ELM(rand() % 1000, rand() % 700, 100, 100, WALL));
 	}
 	for(Element* e : elements){
 		e->collidable = true;
-		e->setMaxSpeed(100);
+		e->setMaxSpeed(10);
 		e->setElasticity(0);
 		e->setColor(155, 133, 0, 255);
 		e->setTexture(texture.getTexture());
+		e->setElasticity(10);
 		game.addElement(e);
 	}
 	elements.clear();

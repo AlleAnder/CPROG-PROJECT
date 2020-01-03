@@ -7,6 +7,7 @@ public:
 	~EXP_PLAY() {};
 
 	void keyDown(SDL_Keycode kc);
-
+		
+	void tick();
 };
 

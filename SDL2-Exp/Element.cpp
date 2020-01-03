@@ -21,7 +21,7 @@ void Element::draw(SDL_Renderer* ren) {
 		SDL_RenderDrawRect(ren, &rect);
 	}
 	else
-		SDL_RenderCopy(ren, texture, NULL, &rect);
+		SDL_RenderCopyEx(ren, texture, NULL, &rect, rotation , NULL , SDL_FLIP_NONE);
 }
 
 void Element::setColor(int r, int g, int b, int a) {

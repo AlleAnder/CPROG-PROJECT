@@ -29,7 +29,7 @@ void EntityManager::addElement( Element* elm) {
 void EntityManager::removeElement(const Element* comp) {
 	for (int i = 0; i < elements.size(); i++) {
 		if (elements.at(i) == comp) {
-			elements.at(i)->~Element();
+			delete elements.at(i);
 			elements.erase(elements.begin() + i);
 		}
 	}
@@ -101,7 +101,7 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 		e->moveFromCurrent(-player->getXVector(), -player->getYVector());
 
 		if (e->collidable) {
-			//if(e == player)
+			if(e == player)
 				if (physics->windowElementCollide(e))
 					colFound = true;
 
@@ -141,7 +141,7 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 		e->draw(ren);
 		e->tick();
 
-		if (outOfBounds(e))
+		if (outOfBounds(e) || e->isDead())
 			removeElement(e);
 	}
 

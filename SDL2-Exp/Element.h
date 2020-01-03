@@ -43,16 +43,22 @@ public:
 	virtual void keyDown(SDL_Keycode kc) {};
 	virtual void keyUp(SDL_Keycode kc) {};
 
+	bool isDead() { return dead; };
+	
+
 protected:
 
 	Element(int x, int y, int w, int h, int ELEMENT_ID);
 	
 	SDL_Texture* texture = nullptr;
 	SDL_Rect rect;
+	
 	Vector vect;
 	int r = 0, g = 0, b = 0, a = 255;
 	double elasticity = 1;
+	double rotation = 0;
 	int ticks = 0;
+	bool dead = false;
 
 private:
 

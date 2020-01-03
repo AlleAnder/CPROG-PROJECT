@@ -12,6 +12,7 @@ public:
 	virtual void takeDamage(int damage) { health -= damage; };
 	virtual void reduceDefence(int reduction, int seconds) {};
 	
+	
 
 protected:
 
@@ -24,6 +25,8 @@ protected:
 	void rndStats(int min, int max);
 
 	int health = 0, defence = 0, strength = 0;
+
+	
 
 private:
 

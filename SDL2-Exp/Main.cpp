@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
 	Background back(screenX, screenY);
 	
 	Game game(&win, &physics, &back);
-	Texture texture(win.ren, "C:/Users/savva/source/repos/CPROG-PROJECT/SDL2-Exp/Images/hello.jpg");
+	Texture texture(win.ren, "C:/Users/savva/source/repos/CPROG-PROJECT/SDL2-Exp/Images/space.png");
 
 	back.setColor(100,100,0,255);
 
@@ -33,7 +33,6 @@ int main(int argc, char* argv[]) {
 	play.collidable = true;
 	play.setMaxSpeed(100);
 	
-
 	Layer lay = Layer(&play);
 	lay.addElement(new EXP_ELM(rand() % 1000, rand() % 700, 100, 100, WALL));
 	lay.addElement(new EXP_ELM(rand() % 1000, rand() % 700, 10, 100, WALL));
@@ -42,20 +41,14 @@ int main(int argc, char* argv[]) {
 	lay.setElasticity(30);
 	game.addLayer(&lay);
 
-	EXP_ENEMY enemy(rand() % 1000, rand() % 700, 60, 40, 11);
-	enemy.setMaxSpeed(1);
-	enemy.collidable = true;
-	enemy.setTarget(&play);
-	game.addElement(&enemy);
-	
-
-	std::vector<Element*> elements;
-	for (int i = 0; i < 1; i++) {
-		elements.push_back(new EXP_ELM(rand() % 1000, rand() % 700, 100, 100, WALL));
+	std::vector<EXP_ENEMY*> elements;
+	for (int i = 0; i < 2; i++) {
+		elements.push_back(new EXP_ENEMY(rand() % 1000, rand() % 700, 50, 50, WALL));
 	}
-	for(Element* e : elements){
+	for(EXP_ENEMY* e : elements){
+		e->setTarget(&play);
 		e->collidable = true;
-		e->setMaxSpeed(10);
+		e->setMaxSpeed(1);
 		e->setElasticity(0);
 		e->setColor(155, 133, 0, 255);
 		e->setTexture(texture.getTexture());

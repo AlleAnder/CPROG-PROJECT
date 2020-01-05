@@ -34,7 +34,9 @@ public:
 
 	const int ELEMENT_ID;
 
-	bool collidable = false;
+	void setCollidable(bool col) { collidable = col; };
+	bool isCollidable() { return collidable; };
+	
 	virtual void onColide(Element* colWith) { std::cout << ELEMENT_ID << std::endl; };
 
 	virtual void mouseDown(Uint8 e) {};
@@ -57,8 +59,8 @@ protected:
 	int r = 0, g = 0, b = 0, a = 255;
 	double elasticity = 1;
 	double rotation = 0;
-	int ticks = 0;
 	bool dead = false;
+	bool collidable = false;
 
 private:
 

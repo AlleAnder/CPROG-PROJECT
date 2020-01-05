@@ -1,26 +1,15 @@
 #pragma once
-#include "Sprite.h"
-
-class Enemy : public Sprite
+#include "EnemyEntity.h"
+class Enemy : public EnemyEntity
 {
 public:
-
-	
+	Enemy(int x, int y, int w, int h, int ELEMENT_ID) : EnemyEntity(x, y, w, h, ELEMENT_ID) {};
 	~Enemy() {};
 
-	virtual bool setTarget(Element* target) { this->target = target; return true; };
-	void clearTarget() { target = nullptr; };
-
-	void tick();
-
-	//void shootTarget(int shots);
-
-	
-protected:
-
-	Enemy(int x, int y, int w, int h, int ELEMENT_ID) : Sprite(x, y, w, h, ELEMENT_ID) {};
-	virtual void moveEnemy();
-
-	Element* target = nullptr;
+	void update();
+	void onColide(Element* colWith);
 };
+
+
+
 

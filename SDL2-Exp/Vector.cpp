@@ -55,8 +55,4 @@ void Vector::setDirTravel(double x, double y){
 			dirTravel = -angle - 180;
 		}
 	}
-
-	std::cout << dirTravel;
-
-	
 }

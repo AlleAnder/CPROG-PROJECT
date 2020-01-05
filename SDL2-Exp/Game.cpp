@@ -11,10 +11,12 @@ Game::~Game() {
 	background->~Background();
 	manager->~EntityManager();
 	win->~GameWindow();
+	
 }
 
 void Game::setPlayer(PlayableEntity* player){
 	manager->setPlayer(player);
+	
 }
 
 void Game::addElement(Element* elm){
@@ -25,9 +27,14 @@ void Game::removeElement(Element* elm){
 	manager->removeElement(elm);
 }
 
-void Game::addLayer(Layer* lay){
-	lay->setColidable(false);
-	manager->addLayer(lay);
+void Game::addForeLayer(Layer* lay){
+	lay->setColidable(false); //Sets colidable to false cuz it doesnt work as indended yet
+	manager->addForeLayer(lay);
+}
+
+void Game::addBackLayer(Layer* lay) {
+	lay->setColidable(false);//Sets colidable to false cuz it doesnt work as indended yet
+	manager->addBackLayer(lay);
 }
 
 void Game::removeLayer(Layer* lay){

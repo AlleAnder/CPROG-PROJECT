@@ -16,6 +16,7 @@ private:
 	EntityManager* manager;
 	Background* background;
 	void draw();
+	
 
 public:
 	void run(int maxFPS);
@@ -23,14 +24,18 @@ public:
 	Game(GameWindow* win, PhysicsHandler* physics, Background* background);
 	~Game();
 
+	
 	void setPlayer(PlayableEntity* player);
+	void setHitboxOffset(int px) { manager->setHitboxOffset(px); };
 	void addElement(Element* elm);
 	void removeElement(Element* elm);
 
-	void addLayer(Layer* lay);
+
+	void addBackLayer(Layer* lay);
+	void addForeLayer(Layer* lay);
 	void removeLayer(Layer* lay);
 
-	
+	void setScrolling(bool scrolling) { manager->setScrolling(scrolling); };
 
 };
 

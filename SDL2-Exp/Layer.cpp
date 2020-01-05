@@ -56,6 +56,6 @@ void Layer::drawLayer(SDL_Renderer* ren){
 
 void Layer::setColidable(bool col){
 	for (Element* e : elements)
-		e->collidable = col;
+		e->setCollidable(col);
 	collidable = col;
 }

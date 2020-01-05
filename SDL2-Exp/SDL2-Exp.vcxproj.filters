@@ -43,17 +43,26 @@
     <Filter Include="Source Files\Elements">
       <UniqueIdentifier>{2ea59699-29e2-416c-ae5e-0b9ce092ebec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\EXPERIMENTAL">
-      <UniqueIdentifier>{de2fe904-50bc-4033-b08a-1960ed12689f}</UniqueIdentifier>
+    <Filter Include="Header Files\ZPACE-GAME">
+      <UniqueIdentifier>{1468a500-bab1-48ea-8723-bb7fa5fec9e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\EXPERIMENTAL">
-      <UniqueIdentifier>{e93f5fa3-eace-4653-8fab-0f9c35ab51a8}</UniqueIdentifier>
+    <Filter Include="Source Files\ZPACE-GAME">
+      <UniqueIdentifier>{ff048097-17a4-4b50-bf21-8ef504ec8f8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ZPACE-GAME\Elements">
+      <UniqueIdentifier>{8547f19a-43fc-4513-b7c3-fec293a3dd42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ZPACE-GAME\Level">
+      <UniqueIdentifier>{6beaf355-a4d2-43eb-88c4-62217c94eb84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ZPACE-GAME\Elements">
+      <UniqueIdentifier>{91af3ced-01f4-4df9-90bc-fddcc2676171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ZPACE-GAME\Level">
+      <UniqueIdentifier>{8307f4c0-d3c3-4c91-aa18-eb6e7210efb8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Font.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
@@ -75,14 +84,8 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="EXP_ELM.cpp">
-      <Filter>Source Files\EXPERIMENTAL</Filter>
-    </ClCompile>
     <ClCompile Include="PlayableEntity.cpp">
       <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="EXP_PLAY.cpp">
-      <Filter>Source Files\EXPERIMENTAL</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Scene</Filter>
@@ -99,11 +102,23 @@
     <ClCompile Include="Layer.cpp">
       <Filter>Source Files\Elements</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files\ZPACE-GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyEntity.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="EXP_ENEMY.cpp">
-      <Filter>Source Files\EXPERIMENTAL</Filter>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\ZPACE-GAME\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Asteorid.cpp">
+      <Filter>Source Files\ZPACE-GAME\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\ZPACE-GAME\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="NCAteroidLayer.cpp">
+      <Filter>Source Files\ZPACE-GAME\Level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,14 +143,8 @@
     <ClInclude Include="Sprite.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="EXP_ELM.h">
-      <Filter>Header Files\EXPERIMENTAL</Filter>
-    </ClInclude>
     <ClInclude Include="PlayableEntity.h">
       <Filter>Header Files\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="EXP_PLAY.h">
-      <Filter>Header Files\EXPERIMENTAL</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Header Files\Scene</Filter>
@@ -152,11 +161,20 @@
     <ClInclude Include="Layer.h">
       <Filter>Header Files\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
+    <ClInclude Include="EnemyEntity.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="EXP_ENEMY.h">
-      <Filter>Header Files\EXPERIMENTAL</Filter>
+    <ClInclude Include="Asteroid.h">
+      <Filter>Header Files\ZPACE-GAME\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\ZPACE-GAME\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\ZPACE-GAME\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="NCAteroidLayer.h">
+      <Filter>Header Files\ZPACE-GAME\Level</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

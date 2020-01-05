@@ -1,9 +1,7 @@
 #include "PhysicsHandler.h"
 
-PhysicsHandler::PhysicsHandler(double gravity, int screenX, int screenY){
-	this->gravity = gravity;
-	this->screenX = screenX;
-	this->screenY = screenY;
+PhysicsHandler::PhysicsHandler(double gravity, int screenX, int screenY) : screenX(screenX) , screenY(screenY){
+	gravity = gravity;
 }
 
 bool PhysicsHandler::elementsCollide(Element* e, Element* e2){
@@ -52,10 +50,10 @@ void PhysicsHandler::applyGravityVector(Element* e){
 }
 
 int PhysicsHandler::rectsCollide(const SDL_Rect* r1, const SDL_Rect* r2){
-	if (r1->x + r1->w >= r2->x &&
-		r2->x + r2->w >= r1->x &&
-		r1->y + r1->h >= r2->y &&
-		r2->y + r2->h >= r1->y)
+	if (r1->x + r1->w + offset >= r2->x - offset &&
+		r2->x + r2->w + offset >= r1->x - offset &&
+		r1->y + r1->h + offset >= r2->y - offset &&
+		r2->y + r2->h + offset >= r1->y - offset)
 		if ((r1->x + r1->w <= r2->x || r2->x + r2->w <= r1->x) && 
 			(r1->y + r1->h >= r2->y || r2->y + r2->h >= r1->y))
 			return 1;

@@ -48,7 +48,7 @@ void Element::changeVectors(double x, double y){
 }
 
 void Element::moveFromCurrent(int x, int y) {
-//	if (vect.maxSpeed > 0) {
+	
 	if(movedRect.x == rect.x && movedRect.y == rect.y){
 		this->movedRect.x = this->rect.x + x;
 		this->movedRect.y = this->rect.y + y;
@@ -60,6 +60,6 @@ void Element::moveFromCurrent(int x, int y) {
 }
 
 void Element::moveToNew(int x, int y) {
-	this->rect.x = x;
-	this->rect.y = y;
+	this->movedRect.x = x;
+	this->movedRect.y = y;
 }

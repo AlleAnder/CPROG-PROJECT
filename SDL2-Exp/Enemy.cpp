@@ -1,14 +1,11 @@
 #include "Enemy.h"
 
-void Enemy::tick()
+void Enemy::update()
 {
-	moveEnemy();
+	rotation = vect.dirTravel;
 }
 
-void Enemy::moveEnemy()
+void Enemy::onColide(Element* colWith)
 {
-	if (target == nullptr) 
-		changeVectors((rand() % 3) - 1.0, (rand() % 3) - 1.0);
-	else 
-		changeVectors((-rect.x + (double)target->getRect()->x) , (-rect.y + (double)target->getRect()->y));
+	dead = true;
 }

@@ -8,16 +8,18 @@ public:
 	~PhysicsHandler() {};
 
 	void setGravity(double gravity) { this->gravity = gravity; };
-	void setAirResistance(double resistance) { airResistance = resistance; };
+	void setHitboxOffset(int px) { offset = px; };
 
 	bool elementsCollide(Element* e, Element* e2);
 	bool windowElementCollide(Element* e);
 	void applyGravityVector(Element* e);
 
+	const int screenX, screenY;
+
 private:
 
-	double gravity = 0, airResistance = 0;
-	int screenX, screenY;
+	double gravity = 0;
+	int offset = 0;
 
 	int rectsCollide(const SDL_Rect* r1, const SDL_Rect* r2);
 	int windowCollide(const SDL_Rect* r1);

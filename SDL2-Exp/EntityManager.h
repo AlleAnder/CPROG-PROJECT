@@ -12,7 +12,10 @@ class EntityManager
 public:
 	void setPlayer(PlayableEntity* player);
 	void addElement(Element* elm);
-	void addLayer(Layer* layer);
+	void addForeLayer(Layer* layer);
+	void addBackLayer(Layer* layer);
+
+	void setScrolling(bool scrolling) { scrollingMap = scrolling; };
 
 	void removeElement(const Element* elm);
 	void removeLayer(Layer* layer);
@@ -21,22 +24,23 @@ public:
 	void triggerEvent(const SDL_Event event);
 	void updateElements(SDL_Renderer* ren);
 	void setPhysics(PhysicsHandler* physics) { this->physics = physics; };
+	void setHitboxOffset(int px) { physics->setHitboxOffset(px); };
 
 	EntityManager(PhysicsHandler* physics);
 	~EntityManager();
 
 private:
-	int screenX = 1000;
-	int screenY = 700;
+	int screenX;
+	int screenY;
 
 	PlayableEntity* player = NULL;
 	std::vector<Element*> elements;
-	std::vector<Layer*> layers;
+	std::vector<Layer*> bLayer, fLayer;
 
 	PhysicsHandler* physics;
 
 	bool outOfBounds(Element* e);
-
+	bool scrollingMap = false;
 
 };
 

@@ -48,7 +48,7 @@ void Player::tick()
 Element* Player::shoot()
 {
 	if (shoot2) {
-		Asteroid* bullet = new Asteroid(rect.x - 10, rect.y - 10, 5, 5, 10);
+		Asteroid* bullet = new Asteroid(rect.x - 10, rect.y - 10, 5, 5);
 		bullet->changeVectors(100, 100);
 		bullet->setMaxSpeed(10);
 		bullet->setColor(255, 255, 255, 255);

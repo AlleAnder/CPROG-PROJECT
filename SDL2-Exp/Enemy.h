@@ -3,7 +3,7 @@
 class Enemy : public EnemyEntity
 {
 public:
-	Enemy(int x, int y, int w, int h, int ELEMENT_ID) : EnemyEntity(x, y, w, h, ELEMENT_ID) {};
+	Enemy(int x, int y, int w, int h) : EnemyEntity(x, y, w, h, 2) {};
 	~Enemy() {};
 
 	void update();

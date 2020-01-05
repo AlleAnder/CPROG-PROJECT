@@ -1,12 +1,13 @@
 #pragma once
 #include "Layer.h"
-#include "Game.h"
 
-class NCAteroidLayer : public Layer
+
+
+class SALayer : public Layer
 {
 public:
-	NCAteroidLayer(PlayableEntity* player, int screenX, int screenY);
-	~NCAteroidLayer();
+	SALayer(PlayableEntity* player, int screenX, int screenY);
+	~SALayer();
 
 	void moveLayer(int x, int y);
 

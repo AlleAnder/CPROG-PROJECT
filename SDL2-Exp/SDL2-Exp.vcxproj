@@ -141,6 +141,7 @@
     <ClCompile Include="Element.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyEntity.cpp" />
+    <ClCompile Include="EnemyLayer.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -148,7 +149,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="NCAteroidLayer.cpp" />
+    <ClCompile Include="SALayer.cpp" />
     <ClCompile Include="PhysicsHandler.cpp" />
     <ClCompile Include="PlayableEntity.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -162,13 +163,14 @@
     <ClInclude Include="Element.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyEntity.h" />
+    <ClInclude Include="EnemyLayer.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Map.h" />
-    <ClInclude Include="NCAteroidLayer.h" />
+    <ClInclude Include="SALayer.h" />
     <ClInclude Include="PhysicsHandler.h" />
     <ClInclude Include="PlayableEntity.h" />
     <ClInclude Include="Player.h" />

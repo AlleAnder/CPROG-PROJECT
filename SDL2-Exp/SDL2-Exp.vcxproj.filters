@@ -114,11 +114,14 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\ZPACE-GAME\Elements</Filter>
     </ClCompile>
-    <ClCompile Include="NCAteroidLayer.cpp">
-      <Filter>Source Files\ZPACE-GAME\Level</Filter>
-    </ClCompile>
     <ClCompile Include="Asteroid.cpp">
       <Filter>Source Files\ZPACE-GAME\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="SALayer.cpp">
+      <Filter>Source Files\ZPACE-GAME\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyLayer.cpp">
+      <Filter>Source Files\ZPACE-GAME\Level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -173,7 +176,10 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files\ZPACE-GAME\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="NCAteroidLayer.h">
+    <ClInclude Include="SALayer.h">
+      <Filter>Header Files\ZPACE-GAME\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyLayer.h">
       <Filter>Header Files\ZPACE-GAME\Level</Filter>
     </ClInclude>
   </ItemGroup>

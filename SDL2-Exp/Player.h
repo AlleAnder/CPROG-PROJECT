@@ -6,7 +6,7 @@
 class Player : public PlayableEntity
 {
 public:
-	Player(int x, int y, int w, int h, int ELEMENT_ID) : PlayableEntity(x, y, w, h, ELEMENT_ID) {};
+	Player(int x, int y, int w, int h) : PlayableEntity(x, y, w, h, 1) {};
 	~Player() {};
 
 	void keyDown(SDL_Keycode kc);

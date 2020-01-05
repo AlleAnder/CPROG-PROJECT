@@ -2,38 +2,43 @@
 
 void Player::keyDown(SDL_Keycode kc)
 {
+	bool moved = false;
 	switch (kc) {
 
+
 	case SDLK_w:
-		if (vect.vY > -5)
-
-			this->changeVectors(0, -1);
-
+		this->changeVectors(0, -1);
+		moved = true;
+		texture = boost;
 		break;
 	case SDLK_a:
-		if (vect.vX > -5)
-
-			this->changeVectors(-1, 0);
-
+		this->changeVectors(-1, 0);
+		moved = true;
+		texture = boost;
 		break;
 	case SDLK_s:
-		if (vect.vY < 5)
-			this->changeVectors(0, 1);
-
+		this->changeVectors(0, 1);
+		moved = true;
+		texture = boost;
 		break;
 	case SDLK_d:
-		if (vect.vX < 5)
-			this->changeVectors(1, 0);
-
+		this->changeVectors(1, 0);
+		moved = true;
+		texture = boost;
 		break;
 	case SDLK_SPACE:
-
+		texture = cruise;
 		shoot2 = true;
-
-
 		break;
 	}
 }
+
+void Player::keyUp(SDL_Keycode kc)
+{
+	texture = cruise;
+}
+
+
 
 void Player::tick()
 {

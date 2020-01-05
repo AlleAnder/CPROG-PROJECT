@@ -24,50 +24,66 @@ int main(int argc, char* argv[]) {
 	GameWindow win("The Space Game! i dont even know lmao", screenX, screenY);
 	PhysicsHandler physics(0, screenX, screenY);
 	Background back(screenX, screenY);
-	Texture star(win.ren, (path + "Images/star.png").c_str());
-	Texture ship(win.ren, (path + "Images/space.png").c_str());
 
-	Texture* bAsteroidtextures[5] = { new Texture(win.ren, (path + "Images/asteroid1B.png").c_str()), 
-									new Texture(win.ren, (path + "Images/asteroid2B.png").c_str()) ,
-									new Texture(win.ren, (path + "Images/asteroid3B.png").c_str()) ,
-									new Texture(win.ren, (path + "Images/asteroid4B.png").c_str()) ,
-									new Texture(win.ren, (path + "Images/asteroid5B.png").c_str()) };
-	Texture* Asteroidtextures[5] = { new Texture(win.ren, (path + "Images/asteroid1.png").c_str()),
-									new Texture(win.ren, (path + "Images/asteroid2.png").c_str()) ,
-									new Texture(win.ren, (path + "Images/asteroid3.png").c_str()) ,
-									new Texture(win.ren, (path + "Images/asteroid4.png").c_str()) ,
-									new Texture(win.ren, (path + "Images/asteroid5.png").c_str()) };
+	Texture star(win.ren, (path + "Images/Stars/star.png").c_str());
+	Texture background(win.ren, (path + "Images/Stars/space.jpg").c_str());
+
+	Texture boostingShip(win.ren, (path + "Images/shipON.png").c_str());
+	Texture cruisingShip(win.ren, (path + "Images/shipOFF.png").c_str());
+
+	Texture* bAsteroidtextures[5] = { new Texture(win.ren, (path + "Images/Asteroids/asteroid1B.png").c_str()), 
+									new Texture(win.ren, (path + "Images/Asteroids/asteroid2B.png").c_str()) ,
+									new Texture(win.ren, (path + "Images/Asteroids/asteroid3B.png").c_str()) ,
+									new Texture(win.ren, (path + "Images/Asteroids/asteroid4B.png").c_str()) ,
+									new Texture(win.ren, (path + "Images/Asteroids/asteroid5B.png").c_str()) };
+	Texture* Asteroidtextures[5] = { new Texture(win.ren, (path + "Images/Asteroids/asteroid1.png").c_str()),
+									new Texture(win.ren, (path + "Images/Asteroids/asteroid2.png").c_str()) ,
+									new Texture(win.ren, (path + "Images/Asteroids/asteroid3.png").c_str()) ,
+									new Texture(win.ren, (path + "Images/Asteroids/asteroid4.png").c_str()) ,
+									new Texture(win.ren, (path + "Images/Asteroids/asteroid5.png").c_str()) };
 	
+	back.setTexture(background.getTexture());
 	Game game(&win, &physics, &back);
 	game.setScrolling(true);
 	
 	
 
-	Player play(screenX/2,screenY/2, 60, 60, PLAYER);
-	play.setTexture(ship.getTexture());
+	Player play(screenX/2,screenY/2, 160, 160, PLAYER);
+	play.setCruiseTexture(cruisingShip.getTexture());
+	play.setMovingTexture(boostingShip.getTexture());
 	play.setCollidable(true);
-	play.setMaxSpeed(3);
+	play.setMaxSpeed(10);
 
 	NCAteroidLayer starLayer1 =  NCAteroidLayer(&play, screenX, screenY);
-	starLayer1.setMovementSpeedToPlayer(30);
+	starLayer1.setMovementSpeedToPlayer(20);
 	for (int i = 0; i < 100; i++) {
-		Element* elm = new Asteroid(rand() % screenX, rand() % screenY, 10, 10, WALL);
+		int size = rand() % 10 + 2;
+		Element* elm = new Asteroid(rand() % screenX, rand() % screenY, size, size, WALL);
 		elm->setTexture(star.getTexture());
 		starLayer1.addElement(elm);
 	}
 
 	NCAteroidLayer starLayer2 = NCAteroidLayer(&play, screenX, screenY);
-	starLayer2.setMovementSpeedToPlayer(50);
-	for (int i = 0; i < 100; i++) {
-		Element* elm = new Asteroid(rand() % screenX, rand() % screenY, 20, 20, WALL);
+	starLayer2.setMovementSpeedToPlayer(65);
+	for (int i = 0; i < 50; i++) {
+		int size = rand() % 10 + 10;
+		Element* elm = new Asteroid(rand() % screenX, rand() % screenY, size, size , WALL);
 		elm->setTexture(star.getTexture());
 		starLayer2.addElement(elm);
 	}
 
+	NCAteroidLayer starLayer3 = NCAteroidLayer(&play, screenX, screenY);
+	starLayer3.setMovementSpeedToPlayer(80);
+	for (int i = 0; i < 10; i++) {
+		int size = rand() % 20 + 10;
+		Element* elm = new Asteroid(rand() % screenX, rand() % screenY, size, size, WALL);
+		elm->setTexture(star.getTexture());
+		starLayer3.addElement(elm);
+	}
+
 	NCAteroidLayer asL2 = NCAteroidLayer(&play, screenX, screenY);
-	
 	asL2.setMovementSpeedToPlayer(100);
-	for (int i = 0; i < 40; i++) {
+	for (int i = 0; i <30; i++) {
 		int x = rand() % 100 + 10;
 		Element* elm = new Asteroid(rand() % (screenX + 300), rand() % (screenY + 300), x,x, WALL);
 		elm->setMaxSpeed(10);
@@ -84,19 +100,20 @@ int main(int argc, char* argv[]) {
 
 	game.addBackLayer(&starLayer1);
 	game.addBackLayer(&starLayer2);
+	game.addBackLayer(&starLayer3);
 	game.addForeLayer(&asL2);
 	asL2.setCollidable(true);
 	
 	std::vector<Enemy*> elements;
 	for (int i = 0; i < 10; i++) {
-		elements.push_back(new Enemy(rand() % screenX, rand() % screenY, 10, 10, WALL));
+		elements.push_back(new Enemy(rand() % screenX, rand() % screenY, 30, 30, WALL));
 	}
 	for(Enemy* e : elements){
 		e->setTarget(&play);
 		e->setCollidable(true);
-		e->setMaxSpeed(2);
+		e->setMaxSpeed(7);
 		e->setColor(155, 133, 0, 255);
-		e->setTexture(ship.getTexture());
+		e->setTexture(boostingShip.getTexture());
 		e->setElasticity(10);
 		game.addElement(e);
 	}

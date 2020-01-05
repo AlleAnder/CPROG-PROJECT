@@ -3,6 +3,7 @@
 
 NCAteroidLayer::~NCAteroidLayer()
 {
+
 }
 
 NCAteroidLayer::NCAteroidLayer(PlayableEntity* player, int screenX, int screenY) : Layer(player), screenX(screenX), screenY(screenY){

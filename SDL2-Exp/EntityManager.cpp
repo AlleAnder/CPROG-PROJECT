@@ -107,6 +107,7 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 		l->tickLayer();
 		l->setMovedLayer();
 		l->drawLayer(ren);
+		l->tickLayer();
 	}
 
 	//SHOOT FIX LATER SOMETHING WIERD IS GOING ON
@@ -138,19 +139,17 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 				//std::cout << e->isCollidable();
 			
 
-			//THIS IS FOR LAYER COLLISION WHICH DOESNT WORK yet :(
-				for (Layer* l : fLayer) {
-					if (l->isCollidable() && !colFound) {
-						for (Element* e2 : l->elements) {
-							if (colFound)
-								break;
-							if (physics->elementsCollide(e, e2))
-								colFound = true;
-						}
-
-						
+			//THIS IS FOR LAYER COLLISION WHICH DOESNT WORK PROPPERLY yet :(
+			for (Layer* l : fLayer) {
+				if (l->isCollidable() && !colFound) {
+					for (Element* e2 : l->elements) {
+						if (colFound)
+							break;
+						if (physics->elementsCollide(e, e2))
+							colFound = true;
 					}
 				}
+			}
 
 			for (Element* e2 : elements) {
 				if (colFound)
@@ -190,6 +189,7 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 			l->moveLayer(-player->getXVector() * l->getMovementSpeed(), -player->getYVector() * l->getMovementSpeed());
 		l->setMovedLayer();
 		l->drawLayer(ren);
+		l->tickLayer();
 	}
 
 

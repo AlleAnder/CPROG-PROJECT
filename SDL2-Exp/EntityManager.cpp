@@ -122,16 +122,16 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 	bool colFound = false; //declare var outside loop so i dont have to do it in every itteration of the loop
 
 	for (Element* e : elements) {  // Handles all elements
-		colFound = false;
+		colFound = false; 
 
 		physics->applyGravityVector(e);
 
 		if (e != player && scrollingMap)
 			e->moveFromCurrent(-player->getXVector(), -player->getYVector());
 
-		if (e == player)
-			if (physics->windowElementCollide(e))
-				colFound = true;
+		if (e == player && !scrollingMap)
+				if (physics->windowElementCollide(e))
+					colFound = true;
 
 		//std::cout << e->isCollidable();
 		if (e->isCollidable()) {
@@ -139,7 +139,7 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 			
 
 			//THIS IS FOR LAYER COLLISION WHICH DOESNT WORK yet :(
-			/*	for (Layer* l : layers) {
+				for (Layer* l : fLayer) {
 					if (l->isCollidable() && !colFound) {
 						for (Element* e2 : l->elements) {
 							if (colFound)
@@ -147,8 +147,10 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 							if (physics->elementsCollide(e, e2))
 								colFound = true;
 						}
+
+						
 					}
-				}*/
+				}
 
 			for (Element* e2 : elements) {
 				if (colFound)
@@ -158,12 +160,11 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 			}
 		}
 
-		if (scrollingMap)	//Resets the player rect, so that the player stays in the same spot when map is scrolling.
+		if (e == player && scrollingMap)	//Resets the player rect, so that the player stays in the same spot when map is scrolling.
 			player->resetMovedRect();
 
-		if (!colFound)
-			e->setMovedRect();
-
+		//if (!colFound)
+		e->setMovedRect();
 		e->draw(ren);
 		e->tick();
 
@@ -171,13 +172,27 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 			removeElement(e);
 	}
 
+	for (Layer* l : fLayer) {
+		for (Element* e1 : l->elements) {
+			e1->changeVectors(0,0);
+			colFound = false;
+			for (Element* e2 : l->elements) {
+				if (colFound)
+					break;
+				if (physics->elementsCollide(e1, e2))
+					colFound = true;
+			}
+		}
+	}
+
 	for (Layer* l : fLayer) { //Handles all foreLayers
 		if (scrollingMap)	//Moves layer in opposite dir of player vectors.
 			l->moveLayer(-player->getXVector() * l->getMovementSpeed(), -player->getYVector() * l->getMovementSpeed());
-		l->tickLayer();
 		l->setMovedLayer();
 		l->drawLayer(ren);
 	}
+
+
 
 	//ATTEMPT TO REMOVE ELMTS
 	/*

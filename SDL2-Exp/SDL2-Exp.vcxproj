@@ -136,7 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Asteorid.cpp" />
+    <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Element.cpp" />
     <ClCompile Include="Enemy.cpp" />

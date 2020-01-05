@@ -40,8 +40,8 @@ void Layer::setElasticity(int el){
 }
 
 void Layer::setMovementSpeedToPlayer(int percentage){
-	if (percentage > 100) 
-		percentage = 100;
+	if (percentage > 1000) 
+		percentage = 1000;
 	else if (percentage < 0)
 		percentage = 0;
 	movementSpeed = percentage / 100.0;
@@ -54,7 +54,7 @@ void Layer::drawLayer(SDL_Renderer* ren){
 	}
 }
 
-void Layer::setColidable(bool col){
+void Layer::setCollidable(bool col){
 	for (Element* e : elements)
 		e->setCollidable(col);
 	collidable = col;

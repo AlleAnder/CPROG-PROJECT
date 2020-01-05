@@ -8,9 +8,8 @@ bool PhysicsHandler::elementsCollide(Element* e, Element* e2){
 	if (e != e2) {
 		int colDir = rectsCollide(e->getMovedRect(), e2->getRect());
 
-		if (colDir != 0) {
+		if (colDir != 0) 
 			e->onColide(e2);
-		}
 
 		if (colDir == 1) {
 			e->resetMovedRect();

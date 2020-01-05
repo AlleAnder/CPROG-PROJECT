@@ -111,14 +111,14 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\ZPACE-GAME\Elements</Filter>
     </ClCompile>
-    <ClCompile Include="Asteorid.cpp">
-      <Filter>Source Files\ZPACE-GAME\Elements</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\ZPACE-GAME\Elements</Filter>
     </ClCompile>
     <ClCompile Include="NCAteroidLayer.cpp">
       <Filter>Source Files\ZPACE-GAME\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Asteroid.cpp">
+      <Filter>Source Files\ZPACE-GAME\Elements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

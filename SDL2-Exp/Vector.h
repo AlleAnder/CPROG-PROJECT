@@ -13,13 +13,14 @@ public:
 	~Vector();
 
 	double vX = 0, vY = 0, dirTravel = 0;
-	int maxSpeed = 0;
+	
 
 	void changeVect(double x, double y);
 	void setMax(int maxSpeed) { this->maxSpeed = maxSpeed; }
-
+	int getMaxSpeed() { return maxSpeed; };
 private:
 
+	int maxSpeed = 0;
 	void setDirTravel(double x, double y);
 
 };

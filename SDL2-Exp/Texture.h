@@ -5,6 +5,7 @@
 class Texture
 {
 	SDL_Texture* texture;
+	SDL_PixelFormat* surfFormat;
 
 public:
 
@@ -14,5 +15,7 @@ public:
 	void replaceTexture(SDL_Renderer* ren, const char* path);
 
 	SDL_Texture* getTexture();
+
+	void setTransparentColor(int r, int g, int b);
 
 };

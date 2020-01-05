@@ -21,7 +21,7 @@ public:
 	virtual void drawLayer(SDL_Renderer* ren);
 	virtual void tickLayer() {};
 
-	void setColidable(bool col);
+	void setCollidable(bool col);
 
 	std::vector<Element*> elements;
 

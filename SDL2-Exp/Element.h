@@ -37,7 +37,7 @@ public:
 	void setCollidable(bool col) { collidable = col; };
 	bool isCollidable() { return collidable; };
 	
-	virtual void onColide(Element* colWith) { std::cout << ELEMENT_ID << std::endl; };
+	virtual void onColide(Element* colWith) {};
 
 	virtual void mouseDown(Uint8 e) {};
 	virtual void mouseUp(Uint8 e) {};

@@ -23,17 +23,17 @@ public:
 
 	void setCollidable(bool col);
 
-	std::vector<Element*> elements;
+	std::vector<Element*> elements; //Does it make a difference wether this is public or private? Due to vect of pointers.
 
 	bool isCollidable() { return collidable; };
 
 protected:
 
 	double movementSpeed = 1;
-	PlayableEntity* player;
+	PlayableEntity* player; // USELESS???????????????
 
 private:
 
-	bool collidable = false; //This can cause problems when other elements collide with layer, player stops as well, everything freezes
+	bool collidable = false;
 };
 

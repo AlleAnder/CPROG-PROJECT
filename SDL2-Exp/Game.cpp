@@ -16,6 +16,7 @@ Game::~Game() {
 
 void Game::setPlayer(PlayableEntity* player){
 	manager->setPlayer(player);
+	this->player = player;
 	
 }
 
@@ -69,7 +70,10 @@ void Game::run(int maxFPS) {
 			default:
 				manager->triggerEvent(event);
 			}
+			
 		}
+		if (player->isDead())
+			run = false;
 		
 		draw();
 		

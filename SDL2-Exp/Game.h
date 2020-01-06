@@ -16,7 +16,7 @@ private:
 	EntityManager* manager;
 	Background* background;
 	void draw();
-	
+	PlayableEntity* player;
 
 public:
 	void run(int maxFPS);

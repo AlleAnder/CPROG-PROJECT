@@ -12,6 +12,8 @@ public:
 	void keyDown(SDL_Keycode kc);
 	void keyUp(SDL_Keycode kc);
 
+	void onColide(Element* e);
+
 	void tick();
 
 	Element* shoot();

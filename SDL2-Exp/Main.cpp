@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
 	Texture boostingShip(win.ren, (path + "Images/shipON.png").c_str());
 	Texture cruisingShip(win.ren, (path + "Images/shipOFF.png").c_str());
 
-	Texture* Asteroidtextures[5] = { new Texture(win.ren, (path + "Images/Asteroids/asteroid1.png").c_str()),
+	Texture* asteroidtextures[5] = { new Texture(win.ren, (path + "Images/Asteroids/asteroid1.png").c_str()),
 									new Texture(win.ren, (path + "Images/Asteroids/asteroid2.png").c_str()) ,
 									new Texture(win.ren, (path + "Images/Asteroids/asteroid3.png").c_str()) ,
 									new Texture(win.ren, (path + "Images/Asteroids/asteroid4.png").c_str()) ,
@@ -48,11 +48,11 @@ int main(int argc, char* argv[]) {
 	play.setCruiseTexture(cruisingShip.getTexture());
 	play.setMovingTexture(boostingShip.getTexture());
 	play.setCollidable(true);
-	play.setMaxSpeed(10);
+	play.setMaxSpeed(6);
 
 	//LAYER OF STARS IN FAR BACK
 	SALayer starLayer1 = SALayer(&play, screenX, screenY);
-	starLayer1.setMovementSpeedToPlayer(10);
+	starLayer1.setMovementSpeedToPlayer(30);
 	for (int i = 0; i < 1000; i++) {
 		int size = rand() % 10 + 2;
 		Element* elm = new Asteroid(rand() % screenX, rand() % screenY, size, size);
@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
 
 	//LAYER OF STARS IN FRONT OF FAR BACK
 	SALayer starLayer2 = SALayer(&play, screenX, screenY);
-	starLayer2.setMovementSpeedToPlayer(50);
+	starLayer2.setMovementSpeedToPlayer(60);
 	for (int i = 0; i < 50; i++) {
 		int size = rand() % 10 + 10;
 		Element* elm = new Asteroid(rand() % screenX, rand() % screenY, size, size);
@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 
 	//LAYER OF STARS CLOSEST
 	SALayer starLayer3 = SALayer(&play, screenX, screenY);
-	starLayer3.setMovementSpeedToPlayer(80);
+	starLayer3.setMovementSpeedToPlayer(90);
 	for (int i = 0; i < 10; i++) {
 		int size = rand() % 20 + 10;
 		Element* elm = new Asteroid(rand() % screenX, rand() % screenY, size, size);
@@ -87,13 +87,18 @@ int main(int argc, char* argv[]) {
 		int x = rand() % 100 + 20;
 		Element* elm = new Asteroid(rand() % (screenX + 300), rand() % (screenY + 300), x,x);
 		elm->setMaxSpeed(10);
-		elm->setTexture(Asteroidtextures[rand() % 5]->getTexture());
+		elm->setTexture(asteroidtextures[rand() % 5]->getTexture());
 		astroidLayer.addElement(elm);
 	}
 	astroidLayer.setCollidable(true);
 
 	//LAYER OF ENEMIES
 	EnemyLayer enemyLayer = EnemyLayer(&play, screenX, screenY);
+	enemyLayer.setEnemyTexture(boostingShip.getTexture());
+	enemyLayer.setCollidable(true);
+	enemyLayer.waveInterval(30);
+	enemyLayer.incDiffPerWave(3);
+	enemyLayer.decreaseIntervalTime(5);
 
 	//ADDING EVERYTHING TO THE GAME
 	game.addBackLayer(&starLayer1);
@@ -105,8 +110,18 @@ int main(int argc, char* argv[]) {
 
 	//RUN!!
 	game.run(30);
-	//DESTROY :C
 	game.~Game();
+
+	//Destroy all textures
+	star.~Texture();
+	background.~Texture();
+	boostingShip.~Texture();
+	cruisingShip.~Texture();
+	for (int i = 0; i < sizeof(asteroidtextures) / sizeof(Texture); i++) 
+		asteroidtextures[i]->~Texture();
+
+	//TO SEE RAM USAGE AFTER EVERYTHING IS DONE
+	SDL_Delay(30000);
 	
 	return 0;
 }

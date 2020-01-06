@@ -7,22 +7,22 @@ void Player::keyDown(SDL_Keycode kc)
 
 
 	case SDLK_w:
-		this->changeVectors(0, -1);
+		this->changeVectors(0, -0.25);
 		moved = true;
 		texture = boost;
 		break;
 	case SDLK_a:
-		this->changeVectors(-1, 0);
+		this->changeVectors(-0.25, 0);
 		moved = true;
 		texture = boost;
 		break;
 	case SDLK_s:
-		this->changeVectors(0, 1);
+		this->changeVectors(0, 0.25);
 		moved = true;
 		texture = boost;
 		break;
 	case SDLK_d:
-		this->changeVectors(1, 0);
+		this->changeVectors(0.25, 0);
 		moved = true;
 		texture = boost;
 		break;
@@ -36,6 +36,12 @@ void Player::keyDown(SDL_Keycode kc)
 void Player::keyUp(SDL_Keycode kc)
 {
 	texture = cruise;
+}
+
+void Player::onColide(Element* e)
+{
+	if (e->ELEMENT_ID == 2);
+		//dead = true;
 }
 
 

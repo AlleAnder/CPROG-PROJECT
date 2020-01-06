@@ -10,9 +10,7 @@ class Sprite : public Element
 public:
 
 	virtual void takeDamage(int damage) { health -= damage; };
-	virtual void reduceDefence(int reduction, int seconds) {};
-	
-	
+	virtual int inflictDamage() { return strength; }
 
 protected:
 
@@ -20,7 +18,6 @@ protected:
 	~Sprite() {};
 
 	void setHealth(int hp) { health = hp; };
-	void setDefence(int def) { defence = def; };
 	void setStrength(int str) { strength = str; };
 	void rndStats(int min, int max);
 

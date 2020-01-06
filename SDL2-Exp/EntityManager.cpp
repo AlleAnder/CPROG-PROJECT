@@ -167,11 +167,11 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 		e->draw(ren);
 		e->tick();
 
-		if (outOfBounds(e) || e->isDead())
+		if (e != player && (outOfBounds(e) || e->isDead()))
 			removeElement(e);
 	}
 
-	for (Layer* l : fLayer) {
+	for (Layer* l : fLayer) { //Handles colisions within a layer
 		for (Element* e1 : l->elements) {
 			e1->changeVectors(0,0);
 			colFound = false;
@@ -180,6 +180,18 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 					break;
 				if (physics->elementsCollide(e1, e2))
 					colFound = true;
+			}
+		}
+
+		for (Layer* l2 : fLayer) {
+			for (Element* e1 : l->elements) {
+				colFound = false;
+				for (Element* e2 : l2->elements) {
+					if (colFound)
+						break;
+					if (physics->elementsCollide(e1, e2))
+						colFound = true;
+				}
 			}
 		}
 	}

@@ -7,7 +7,7 @@ struct Layer
 {
 public:
 	Layer(PlayableEntity* player);
-	~Layer();
+	virtual ~Layer();
 
 	void addElement(Element* elm);
 	void removeElement(Element* elm);

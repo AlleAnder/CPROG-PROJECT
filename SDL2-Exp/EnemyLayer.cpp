@@ -1,6 +1,6 @@
 #include "EnemyLayer.h"
 
-EnemyLayer::EnemyLayer(PlayableEntity* player, int screenX, int screenY) : Layer(player), screenX(screenX), screenY(screenY){
+EnemyLayer::EnemyLayer(PlayableEntity* player, int screenX, int screenY, Mix_Chunk* col) : Layer(player), screenX(screenX), screenY(screenY), collisionSound(col){
 }
 
 void EnemyLayer::tickLayer(){
@@ -20,8 +20,8 @@ void EnemyLayer::tickLayer(){
 		}
 	}
 
-	std::cout << secondCounter;
-
+	//std::cout << secondCounter;
+	
 	checkAndRemoveElm();
 
 
@@ -58,7 +58,7 @@ void EnemyLayer::makeWave(){
 Enemy* EnemyLayer::makeEnemy(){
 	SDL_Point point = *getOutOfWinCords();
 
-	Enemy* enemy = new Enemy(point.x, point.y, enemySize, enemySize, 10, 1);
+	Enemy* enemy = new Enemy(point.x, point.y, enemySize, enemySize, 10, 1, collisionSound);
 	enemy->setCollidable(true);
 	enemy->setMaxSpeed(3);
 	enemy->setTarget(player);

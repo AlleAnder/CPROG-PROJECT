@@ -11,21 +11,24 @@ public:
 
 	virtual void takeDamage(int damage) { health -= damage; };
 	virtual int inflictDamage() { return strength; }
+	void showHealthBar(bool show) { showHealth = show; };
 
 protected:
 
-	Sprite(int x, int y, int w, int h, int ELEMENT_ID) : Element(x, y, w, h, ELEMENT_ID) {};
-	~Sprite() {};
+	Sprite(int x, int y, int w, int h, int ELEMENT_ID, int health, int strength);
+	virtual ~Sprite() {};
 
-	void setHealth(int hp) { health = hp; };
-	void setStrength(int str) { strength = str; };
 	void rndStats(int min, int max);
-
-	int health = 0, defence = 0, strength = 0;
-
+	void draw(SDL_Renderer* ren);
 	
-
+	int health, const startingHealth, strength;
+	bool showHealth = true;
+	
 private:
+
+	void updateHealthBar();
+	void drawHealthBar(SDL_Renderer* ren);
+	SDL_Rect lifeLost, const lifeTot;
 
 	Sprite(const Sprite& c) = delete;
 	const Sprite& operator= (const Sprite& c) = delete;

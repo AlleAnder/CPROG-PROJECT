@@ -3,18 +3,24 @@
 EntityManager::~EntityManager() {
 	physics->~PhysicsHandler();
 
-	for (int i = 0; i < elements.size(); i++)
-		elements.at(i)->~Element();
+	for (std::vector<Element*>::iterator it = elements.begin(); it != elements.end();) {
+		(*it)->~Element();
+		it = elements.erase(it);
+	}
 	elements.clear();
 
-	for (int i = 0; i < bLayer.size(); i++)
-		bLayer.at(i)->~Layer();
+	for (std::vector<Layer*>::iterator it = bLayer.begin(); it != bLayer.end();) {
+		(*it)->~Layer();
+		it = bLayer.erase(it);
+	}
 	bLayer.clear();
 
-	for (int i = 0; i < fLayer.size(); i++)
-		fLayer.at(i)->~Layer();
+	for (std::vector<Layer*>::iterator it = fLayer.begin(); it != fLayer.end();) {
+		(*it)->~Layer();
+		it = fLayer.erase(it);
+	}
 	fLayer.clear();
-
+	
 	player->~PlayableEntity();
 }
 
@@ -36,11 +42,14 @@ void EntityManager::addElement( Element* elm) {
 }
 
 void EntityManager::removeElement(const Element* comp) {
-	for (int i = 0; i < elements.size(); i++) {
-		if (elements.at(i) == comp) {
-			delete elements.at(i);
-			elements.erase(elements.begin() + i);
+
+	for (std::vector<Element*>::iterator it = elements.begin(); it != elements.end();) {
+		if (*it == comp) {
+			(*it)->~Element();
+			it = elements.erase(it);
 		}
+		else
+			it++;
 	}
 }
 
@@ -99,7 +108,7 @@ void EntityManager::triggerEvent(SDL_Event event) {
 }
 
 void EntityManager::updateElements(SDL_Renderer* ren) {
-	std::cout << "Amt of elements: " << elements.size() << std::endl;
+//	std::cout << "Amt of elements: " << elements.size() << std::endl;
 
 	for (Layer* l : bLayer) { //Handles all backLayers
 		if (scrollingMap) //Moves layer in opposite dir of player vectors.
@@ -111,31 +120,32 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 	}
 
 	//SHOOT FIX LATER SOMETHING WIERD IS GOING ON
-	/*
 	Element* shot = player->shoot();
-	if (shot != nullptr)
+	if (shot != nullptr){
 		addElement(shot); //Takes the shot element and adds it to element vector
+		shot->changeVectors(100, 100);
+	}
 	else
 		delete shot;
-		*/
+		
 	
 
 	bool colFound = false; //declare var outside loop so i dont have to do it in every itteration of the loop
 
-	for (Element* e : elements) {  // Handles all elements
+	for (std::vector<Element*>::iterator it = elements.begin(); it != elements.end(); ) {  // Handles all elements
 		colFound = false; 
+		
+		physics->applyGravityVector((*it));
+		
+		if ((*it) != player && scrollingMap)
+			(*it)->moveFromCurrent(-player->getXVector(), -player->getYVector());
 
-		physics->applyGravityVector(e);
-
-		if (e != player && scrollingMap)
-			e->moveFromCurrent(-player->getXVector(), -player->getYVector());
-
-		if (e == player && !scrollingMap)
-				if (physics->windowElementCollide(e))
+		if ((*it) == player && !scrollingMap)
+				if (physics->windowElementCollide(*it))
 					colFound = true;
-
+	
 		//std::cout << e->isCollidable();
-		if (e->isCollidable()) {
+		if ((*it) ->isCollidable()) {
 				//std::cout << e->isCollidable();
 			
 
@@ -145,7 +155,7 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 					for (Element* e2 : l->elements) {
 						if (colFound)
 							break;
-						if (physics->elementsCollide(e, e2))
+						if (physics->elementsCollide((*it), e2))
 							colFound = true;
 					}
 				}
@@ -154,26 +164,30 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 			for (Element* e2 : elements) {
 				if (colFound)
 					break;
-				if (physics->elementsCollide(e, e2))
+				if (physics->elementsCollide((*it), e2))
 					colFound = true;
 			}
 		}
 
-		if (e == player && scrollingMap)	//Resets the player rect, so that the player stays in the same spot when map is scrolling.
+		if ((*it) == player && scrollingMap)	//Resets the player rect, so that the player stays in the same spot when map is scrolling.
 			player->resetMovedRect();
 
 		//if (!colFound)
-		e->setMovedRect();
-		e->draw(ren);
-		e->tick();
+		(*it)->setMovedRect();
+		(*it)->draw(ren);
+		(*it)->tick();
 
-		if (e != player && (outOfBounds(e) || e->isDead()))
-			removeElement(e);
+		if ((*it) != player && (outOfBounds((*it)) || (*it)->isDead())) {
+			delete* it;
+			it = elements.erase(it);
+		}
+		else
+			it++;
 	}
 
 	for (Layer* l : fLayer) { //Handles colisions within a layer
 		for (Element* e1 : l->elements) {
-			e1->changeVectors(0,0);
+			physics->applyGravityVector(e1);
 			colFound = false;
 			for (Element* e2 : l->elements) {
 				if (colFound)
@@ -204,22 +218,6 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 		l->tickLayer();
 	}
 
-
-
-	//ATTEMPT TO REMOVE ELMTS
-	/*
-	int i = 0;
-	for (std::vector<Element*>::const_iterator it = elements.begin(); it != elements.end();)
-		if (outOfBounds(*it)) {
-			delete *it;
-			elements.erase(it);
-		}
-		else {
-			it++;
-			i++;
-		}
-	*/
-	//THIS SHIT ABOVE DOES NOT WORK LOL AND SHOOTING BULLETS DONT EITHER
 }
 
 

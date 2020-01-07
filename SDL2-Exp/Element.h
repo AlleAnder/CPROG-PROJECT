@@ -30,7 +30,7 @@ public:
 	double getXVector() { return vect.vX; }
 	double getYVector() { return vect.vY; }
 
-	~Element();
+	virtual ~Element();
 
 	const int ELEMENT_ID;
 

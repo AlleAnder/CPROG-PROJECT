@@ -5,7 +5,7 @@
 class EnemyLayer : public Layer
 {
 public:
-	EnemyLayer(PlayableEntity* player, int screenX, int screenY);
+	EnemyLayer(PlayableEntity* player, int screenX, int screenY, Mix_Chunk * col);
 	~EnemyLayer() { };
 
 	void tickLayer();
@@ -25,9 +25,9 @@ private:
 	Enemy* makeEnemy();
 	SDL_Point* getOutOfWinCords();
 
+	Mix_Chunk* collisionSound;
 	int frameCounter = 1, const screenX, const screenY, fps = 30, currentWave = 0, interval = 10, diffInc = 1, intDec = 1, currentDiff = 1, const enemySize = 50;
 	long secondCounter = 0;
-	SDL_Texture* texture;
-
+	SDL_Texture* texture = nullptr;
 };
 

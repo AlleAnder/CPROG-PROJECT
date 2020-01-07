@@ -1,16 +1,13 @@
 #include "Enemy.h"
 
-Enemy::Enemy(int x, int y, int w, int h, int health, int strength) : EnemyEntity(x, y, w, h, 2) {
-	this->health = health;
-	this->strength = strength;
-}
-
 void Enemy::update()
 {
 	rotation = vect.dirTravel;
 }
 
 void Enemy::onColide(Element* colWith){
-
-	dead = true;
+	health -= 1;
+	Mix_PlayChannel(-1, collision, 0);
+	if (health <= 0)
+		dead = true;
 }

@@ -6,8 +6,10 @@ Layer::Layer(PlayableEntity* player){
 }
 
 Layer::~Layer() {
-	for (int i = 0; i < elements.size(); i++)
-		elements.at(i)->~Element();
+	for (std::vector<Element*>::iterator it = elements.begin(); it != elements.end();) {
+		delete* it;
+		it = elements.erase(it);
+	}
 	elements.clear();
 }
 

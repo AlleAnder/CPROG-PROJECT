@@ -2,11 +2,12 @@
 #include "PlayableEntity.h"
 #include "Asteroid.h"
 #include "Texture.h"
+#include <SDL_mixer.h>
 
 class Player : public PlayableEntity
 {
 public:
-	Player(int x, int y, int w, int h) : PlayableEntity(x, y, w, h, 1) {};
+	Player(int x, int y, int w, int h, int health, int strength, Mix_Chunk* col) : PlayableEntity(x, y, w, h, 1, health, strength), colSound(col){};
 	~Player() {};
 
 	void keyDown(SDL_Keycode kc);
@@ -17,14 +18,17 @@ public:
 	void tick();
 
 	Element* shoot();
-	bool shoot2;
+	bool shootable = false;
 
 	void setMovingTexture(SDL_Texture* texture) { boost = texture; };
 	void setCruiseTexture(SDL_Texture* texture) { cruise = texture; this->texture = cruise; };
 
+	int getHealth() { return health; };
+
 private:
+	void moveTDir(int dir);
 
-	SDL_Texture* boost;
-	SDL_Texture* cruise;
+	Mix_Chunk* colSound;
+	SDL_Texture* boost = nullptr;
+	SDL_Texture* cruise = nullptr;
 };
-

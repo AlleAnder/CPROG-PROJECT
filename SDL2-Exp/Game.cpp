@@ -29,12 +29,10 @@ void Game::removeElement(Element* elm){
 }
 
 void Game::addForeLayer(Layer* lay){
-	//lay->setCollidable(false); //Sets colidable to false cuz it doesnt work as indended yet
 	manager->addForeLayer(lay);
 }
 
 void Game::addBackLayer(Layer* lay) {
-	//lay->setCollidable(false);//Sets colidable to false cuz it doesnt work as indended yet
 	manager->addBackLayer(lay);
 }
 

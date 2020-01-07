@@ -8,8 +8,6 @@ Element::Element(int x, int y, int w, int h, int ELEMENT_ID) : ELEMENT_ID(ELEMEN
 
 }
 
-
-
 Element::~Element() {
 	vect.~Vector();
 }

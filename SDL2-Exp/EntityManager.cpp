@@ -123,7 +123,7 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 	Element* shot = player->shoot();
 	if (shot != nullptr){
 		addElement(shot); //Takes the shot element and adds it to element vector
-		shot->changeVectors(100, 100);
+		//shot->changeVectors(100, 100);
 	}
 	else
 		delete shot;

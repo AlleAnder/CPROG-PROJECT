@@ -26,7 +26,7 @@ private:
 	SDL_Point* getOutOfWinCords();
 
 	Mix_Chunk* collisionSound;
-	int frameCounter = 1, const screenX, const screenY, fps = 30, currentWave = 0, interval = 10, diffInc = 1, intDec = 1, currentDiff = 1, const enemySize = 50;
+	int frameCounter = 1, const screenX, const screenY, fps = 30, currentWave = 0, interval = 10, diffInc = 1, intDec = 1, currentDiff = 1, const enemySize = 30;
 	long secondCounter = 0;
 	SDL_Texture* texture = nullptr;
 };

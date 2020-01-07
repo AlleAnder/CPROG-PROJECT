@@ -62,6 +62,7 @@ int main(int argc, char* argv[]) {
 
 	Texture boostingShip(win.ren, (path + "Images/shipON.png").c_str());
 	Texture cruisingShip(win.ren, (path + "Images/shipOFF.png").c_str());
+	Texture enemyShip(win.ren, (path + "Images/enemy.png").c_str());
 
 	Texture* asteroidtextures[] = { new Texture(win.ren, (path + "Images/Asteroids/asteroid1.png").c_str()),
 									new Texture(win.ren, (path + "Images/Asteroids/asteroid2.png").c_str()) ,
@@ -126,7 +127,7 @@ int main(int argc, char* argv[]) {
 	
 	//LAYER OF ENEMIES	
 	EnemyLayer enemyLayer = EnemyLayer(&play, screenX, screenY, collision);
-	enemyLayer.setEnemyTexture(boostingShip.getTexture());
+	enemyLayer.setEnemyTexture(enemyShip.getTexture());
 	enemyLayer.setCollidable(true);
 	enemyLayer.waveInterval(10);
 	enemyLayer.incDiffPerWave(3);
@@ -151,6 +152,7 @@ int main(int argc, char* argv[]) {
 	//background.~Texture();
 	boostingShip.~Texture();
 	cruisingShip.~Texture();
+	enemyShip.~Texture();
 	for (int i = 0; i < sizeof(asteroidtextures) / sizeof(Texture); i++)
 		asteroidtextures[i]->~Texture();
 	destroySound();

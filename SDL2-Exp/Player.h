@@ -2,12 +2,13 @@
 #include "PlayableEntity.h"
 #include "Asteroid.h"
 #include "Texture.h"
-#include <SDL_mixer.h>
+
+
 
 class Player : public PlayableEntity
 {
 public:
-	Player(int x, int y, int w, int h, int health, int strength, Mix_Chunk* col) : PlayableEntity(x, y, w, h, 1, health, strength), colSound(col){};
+	Player(int x, int y, int w, int h, int health, int strength, Mix_Chunk* col);
 	~Player() {};
 
 	void keyDown(SDL_Keycode kc);
@@ -26,9 +27,14 @@ public:
 	int getHealth() { return health; };
 
 private:
-	void moveTDir(int dir);
+	void moveTDir(int dir); //NOT YET IMPLEMENTED
+	void calculateShotSpawnDistance();
 
 	Mix_Chunk* colSound;
 	SDL_Texture* boost = nullptr;
 	SDL_Texture* cruise = nullptr;
+
+	
+
+	int shotSpawnDistance = 0;
 };

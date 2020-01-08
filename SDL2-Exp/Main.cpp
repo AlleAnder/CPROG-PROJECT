@@ -7,7 +7,7 @@
 #include "Game.h"
 #include "Texture.h"
 #include <stdlib.h> 
-#include "Background.h"
+
 #include "Layer.h"
 
 #include "Asteroid.h"
@@ -15,88 +15,96 @@
 #include "Enemy.h"
 #include "SALayer.h"
 #include "EnemyLayer.h"
+#include "Background.h"
 
 //ELM IDS: player = 1, enemy = 2, asteroid = 3
 
-const int screenX = 2000, screenY = 1000;
+const int screenX = 1000, screenY = 700;
 const std::string path = "C:/Users/savva/source/repos/CPROG-PROJECT/SDL2-Exp/";
 
 Mix_Chunk* bgm; 
 Mix_Chunk* collision; 
-Mix_Chunk* bgHum;
+Mix_Chunk* shot;
+Mix_Chunk* shotCol;
 
 void initSound() {
 	if (Mix_OpenAudio(44100, AUDIO_S16SYS, 6, 8192) < 0)
 		std::cerr << "Error loading mixer: " << Mix_GetError() << "\n";
 
 	bgm = Mix_LoadWAV((path + "Sounds/zong.wav").c_str());
-	bgHum = Mix_LoadWAV((path + "Sounds/bgHum.wav").c_str());
+	shot = Mix_LoadWAV((path + "Sounds/shot.wav").c_str());
+	shotCol = Mix_LoadWAV((path + "Sounds/shotCol.wav").c_str());
 	collision = Mix_LoadWAV((path + "Sounds/collision.mp3").c_str());
 
-	if(bgm == nullptr || collision == nullptr || bgHum == nullptr)
+	if(bgm == nullptr || collision == nullptr || shot == nullptr || shotCol == nullptr)
 		std::cerr << "Could not load audio";
 	else {
-		bgm->volume = 70;
+		//bgm->volume = 30;
 		Mix_PlayChannel(-1, bgm, -1);
-		Mix_PlayChannel(-1, bgHum, -1);
 	}
 }
 
 void destroySound() {
 	Mix_FreeChunk(bgm);
+	Mix_FreeChunk(shot);
+	Mix_FreeChunk(shotCol);
 	Mix_FreeChunk(collision);
-	Mix_FreeChunk(bgHum);
 	Mix_CloseAudio();
 }
 
 int main(int argc, char* argv[]) {
-	GameWindow win("The Space Game! i dont even know lmao", screenX, screenY);
-	PhysicsHandler physics(0, screenX, screenY);
-	Background back(screenX, screenY);
+	GameWindow* win = new GameWindow("The Space Game! i dont even know lmao", screenX, screenY);
+	PhysicsHandler* physics = new PhysicsHandler(0, screenX, screenY);
+	Background* back = new Background(screenX, screenY);
 
 	//Initializes music and such
 	initSound();
 
-	Texture star(win.ren, (path + "Images/Stars/star.png").c_str());
+	Texture star(win->getRenderer(), (path + "Images/Stars/star.png").c_str());
 	//Texture background(win.ren, (path + "Images/Stars/space.jpg").c_str());
 
-	Texture boostingShip(win.ren, (path + "Images/shipON.png").c_str());
-	Texture cruisingShip(win.ren, (path + "Images/shipOFF.png").c_str());
-	Texture enemyShip(win.ren, (path + "Images/enemy.png").c_str());
+	Texture boostingShip(win->getRenderer(), (path + "Images/shipON.png").c_str());
+	Texture cruisingShip(win->getRenderer(), (path + "Images/shipOFF.png").c_str());
+	Texture enemyShip(win->getRenderer(), (path + "Images/enemy.png").c_str());
 
-	Texture* asteroidtextures[] = { new Texture(win.ren, (path + "Images/Asteroids/asteroid1.png").c_str()),
-									new Texture(win.ren, (path + "Images/Asteroids/asteroid2.png").c_str()) ,
-									new Texture(win.ren, (path + "Images/Asteroids/asteroid3.png").c_str()) ,
-									new Texture(win.ren, (path + "Images/Asteroids/asteroid4.png").c_str()) ,
-									new Texture(win.ren, (path + "Images/Asteroids/asteroid5.png").c_str()) };
+	Texture* asteroidtextures[] = { new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid1.png").c_str()),
+									new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid2.png").c_str()) ,
+									new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid3.png").c_str()) ,
+									new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid4.png").c_str()) ,
+									new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid5.png").c_str()) };
 	
 //	back.setTexture(background.getTexture());
-	Game game(&win, &physics, &back);
+	back->setColor(100,100,100,255);
+	Game game(win, physics, back);
 	game.setScrolling(true);
-	game.setHitboxOffset(-10);
+	game.setHitboxOffset(-5);
 	
 	//CREATE PLAYER
-	Player play(screenX/2,screenY/2, 80, 80, 1000, 10, collision);
+	Player play(screenX/2,screenY/2, 50, 70, 10, 10, collision);
 	play.setCruiseTexture(cruisingShip.getTexture());
 	play.setMovingTexture(boostingShip.getTexture());
 	play.setCollidable(true);
 	play.setMaxSpeed(6);
-	play.shootable = true;
-
+	play.setShotColSound(shotCol);
+	play.setShotSound(shot);
+	
+	
 	//LAYER OF STARS IN FAR BACK
 	SALayer starLayer1 = SALayer(&play, screenX, screenY);
 	starLayer1.setMovementSpeedToPlayer(30);
-	for (int i = 0; i < 1000; i++) {
+	for (int i = 0; i < 100; i++) {
 		int size = rand() % 10 + 2;
 		Element* elm = new Asteroid(rand() % screenX, rand() % screenY, size, size);
 		elm->setTexture(star.getTexture());
 		starLayer1.addElement(elm);
 	}
+	play.shootable = true;
+	
 
 	//LAYER OF STARS IN FRONT OF FAR BACK
 	SALayer starLayer2 = SALayer(&play, screenX, screenY);
 	starLayer2.setMovementSpeedToPlayer(60);
-	for (int i = 0; i < 50; i++) {
+	for (int i = 0; i < 20; i++) {
 		int size = rand() % 10 + 10;
 		Element* elm = new Asteroid(rand() % screenX, rand() % screenY, size, size);
 		elm->setTexture(star.getTexture());
@@ -112,25 +120,28 @@ int main(int argc, char* argv[]) {
 		elm->setTexture(star.getTexture());
 		starLayer3.addElement(elm);
 	}
-
+	
 	//LAYER OF ASTEROIDS
 	SALayer astroidLayer = SALayer(&play, screenX, screenY);
 	astroidLayer.setMovementSpeedToPlayer(100);
-	for (int i = 0; i <20; i++) {
+	for (int i = 0; i <10; i++) {
 		int x = rand() % 100 + 20;
-		Element* elm = new Asteroid(rand() % (screenX + 300), rand() % (screenY + 300), x,x);
+		Asteroid* elm = new Asteroid(rand() % (screenX + 300), rand() % (screenY + 300), x,x);
+		elm->setColSound(shotCol);
 		elm->setMaxSpeed(10);
+		elm->setElasticity(50);
 		elm->setTexture(asteroidtextures[rand() % 5]->getTexture());
 		astroidLayer.addElement(elm);
 	}
 	astroidLayer.setCollidable(true);
 	
+	
 	//LAYER OF ENEMIES	
 	EnemyLayer enemyLayer = EnemyLayer(&play, screenX, screenY, collision);
 	enemyLayer.setEnemyTexture(enemyShip.getTexture());
 	enemyLayer.setCollidable(true);
-	enemyLayer.waveInterval(10);
-	enemyLayer.incDiffPerWave(3);
+	enemyLayer.waveInterval(20);
+	enemyLayer.incDiffPerWave(1);
 	enemyLayer.decreaseIntervalTime(5);
 	
 	//ADDING EVERYTHING TO THE GAME
@@ -138,12 +149,11 @@ int main(int argc, char* argv[]) {
 	game.addBackLayer(&starLayer2);
 	game.addBackLayer(&starLayer3);
 	game.addForeLayer(&enemyLayer);
-	game.addForeLayer(&astroidLayer);
+	game.addForeLayer(&astroidLayer); 
 	game.setPlayer(&play);
-
 	
-
-	//RUN!!
+	//RUN!!	
+	game.setPlayer(&play);
 	game.run(30);
 	game.~Game();
 

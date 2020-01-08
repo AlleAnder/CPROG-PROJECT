@@ -10,21 +10,14 @@
 
 
 class Game{
-private:
-	
-	GameWindow* win;
-	EntityManager* manager;
-	Background* background;
-	void draw();
-	PlayableEntity* player = nullptr;
 
 public:
-	void run(int maxFPS);
 
 	Game(GameWindow* win, PhysicsHandler* physics, Background* background);
 	~Game();
 
-	
+	void run(int maxFPS);
+
 	void setPlayer(PlayableEntity* player);
 	void setHitboxOffset(int px) { manager->setHitboxOffset(px); };
 	void addElement(Element* elm);
@@ -36,6 +29,14 @@ public:
 	void removeLayer(Layer* lay);
 
 	void setScrolling(bool scrolling) { manager->setScrolling(scrolling); };
+
+private:
+
+	GameWindow* win;
+	EntityManager* manager;
+	Background* background;
+	void draw();
+	PlayableEntity* player = nullptr;
 
 };
 

@@ -6,6 +6,7 @@ Texture::Texture(SDL_Renderer* ren, const char* path) {
 
 Texture::~Texture() {
 	SDL_DestroyTexture(texture);
+	
 }
 
 void Texture::replaceTexture(SDL_Renderer* ren, const char* path) {

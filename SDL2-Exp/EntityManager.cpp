@@ -1,27 +1,24 @@
 #include "EntityManager.h"
 
 EntityManager::~EntityManager() {
-	physics->~PhysicsHandler();
-
-	for (std::vector<Element*>::iterator it = elements.begin(); it != elements.end();) {
-		(*it)->~Element();
+	for (std::vector<Element*>::iterator it = elements.begin(); it != elements.end();) { //Player variable gets deleted here as it is part of element vector
+		//delete* it;
 		it = elements.erase(it);
 	}
 	elements.clear();
 
 	for (std::vector<Layer*>::iterator it = bLayer.begin(); it != bLayer.end();) {
-		(*it)->~Layer();
+		//(*it)->~Layer();
 		it = bLayer.erase(it);
 	}
 	bLayer.clear();
 
 	for (std::vector<Layer*>::iterator it = fLayer.begin(); it != fLayer.end();) {
-		(*it)->~Layer();
+	//	(*it)->~Layer();
 		it = fLayer.erase(it);
 	}
 	fLayer.clear();
-	
-	player->~PlayableEntity();
+	delete physics;
 }
 
 EntityManager::EntityManager(PhysicsHandler* physics) {
@@ -45,12 +42,14 @@ void EntityManager::removeElement(const Element* comp) {
 
 	for (std::vector<Element*>::iterator it = elements.begin(); it != elements.end();) {
 		if (*it == comp) {
-			(*it)->~Element();
+			delete* it;
 			it = elements.erase(it);
 		}
 		else
 			it++;
 	}
+
+	std::cout << elements.size();
 }
 
 void EntityManager::addForeLayer(Layer* layer){
@@ -123,49 +122,44 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 	Element* shot = player->shoot();
 	if (shot != nullptr){
 		addElement(shot); //Takes the shot element and adds it to element vector
-		//shot->changeVectors(100, 100);
 	}
 	else
 		delete shot;
 		
-	
-
 	bool colFound = false; //declare var outside loop so i dont have to do it in every itteration of the loop
 
 	for (std::vector<Element*>::iterator it = elements.begin(); it != elements.end(); ) {  // Handles all elements
-		colFound = false; 
-		
+		colFound = false;
+
 		physics->applyGravityVector((*it));
-		
+
 		if ((*it) != player && scrollingMap)
 			(*it)->moveFromCurrent(-player->getXVector(), -player->getYVector());
 
 		if ((*it) == player && !scrollingMap)
-				if (physics->windowElementCollide(*it))
-					colFound = true;
-	
-		//std::cout << e->isCollidable();
-		if ((*it) ->isCollidable()) {
-				//std::cout << e->isCollidable();
+			if (physics->windowElementCollide(*it))
+				colFound = true;
+
+		if ((*it)->isCollidable()) {
 			
 
-			//THIS IS FOR LAYER COLLISION WHICH DOESNT WORK PROPPERLY yet :(
+		//THIS IS FOR LAYER COLLISION WHICH DOESNT WORK PROPPERLY yet :(
 			for (Layer* l : fLayer) {
-				if (l->isCollidable() && !colFound) {
+				if (l->isCollidable()) {
 					for (Element* e2 : l->elements) {
-						if (colFound)
-							break;
-						if (physics->elementsCollide((*it), e2))
+						if (physics->elementsCollide((*it), e2) && physics->elementsCollide(e2, (*it)))
 							colFound = true;
 					}
 				}
 			}
 
 			for (Element* e2 : elements) {
-				if (colFound)
-					break;
-				if (physics->elementsCollide((*it), e2))
-					colFound = true;
+				if (e2->isCollidable()) {
+					if (colFound)
+						break;
+					if (physics->elementsCollide((*it), e2))
+						colFound = true;
+				}
 			}
 		}
 
@@ -183,10 +177,12 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 		}
 		else
 			it++;
-	}
 
-	for (Layer* l : fLayer) { //Handles colisions within a layer
-		for (Element* e1 : l->elements) {
+
+	}
+	
+	for (Layer* l : fLayer) {
+		for (Element* e1 : l->elements) { //Handles colisions within a flayer
 			physics->applyGravityVector(e1);
 			colFound = false;
 			for (Element* e2 : l->elements) {
@@ -197,7 +193,7 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 			}
 		}
 
-		for (Layer* l2 : fLayer) {
+		for (Layer* l2 : fLayer) { //Handles collisions between layers
 			for (Element* e1 : l->elements) {
 				colFound = false;
 				for (Element* e2 : l2->elements) {
@@ -208,14 +204,12 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 				}
 			}
 		}
-	}
-
-	for (Layer* l : fLayer) { //Handles all foreLayers
+		
 		if (scrollingMap)	//Moves layer in opposite dir of player vectors.
 			l->moveLayer(-player->getXVector() * l->getMovementSpeed(), -player->getYVector() * l->getMovementSpeed());
 		l->setMovedLayer();
-		l->drawLayer(ren);
 		l->tickLayer();
+		l->drawLayer(ren);
 	}
 
 }

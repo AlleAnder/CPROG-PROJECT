@@ -63,14 +63,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Font.cpp">
-      <Filter>Source Files\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="GameWindow.cpp">
       <Filter>Source Files\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="EntityManager.cpp">
       <Filter>Source Files\Entities</Filter>
@@ -96,9 +90,6 @@
     <ClCompile Include="PhysicsHandler.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Background.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Layer.cpp">
       <Filter>Source Files\Elements</Filter>
     </ClCompile>
@@ -123,6 +114,9 @@
     <ClCompile Include="EnemyLayer.cpp">
       <Filter>Source Files\ZPACE-GAME\Level</Filter>
     </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Source Files\ZPACE-GAME\Level</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameWindow.h">
@@ -130,12 +124,6 @@
     </ClInclude>
     <ClInclude Include="EntityManager.h">
       <Filter>Header Files\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Font.h">
-      <Filter>Header Files\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files\Game</Filter>
@@ -154,9 +142,6 @@
     </ClInclude>
     <ClInclude Include="Vector.h">
       <Filter>Header Files\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Background.h">
-      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsHandler.h">
       <Filter>Header Files\Physics</Filter>
@@ -180,6 +165,9 @@
       <Filter>Header Files\ZPACE-GAME\Level</Filter>
     </ClInclude>
     <ClInclude Include="EnemyLayer.h">
+      <Filter>Header Files\ZPACE-GAME\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
       <Filter>Header Files\ZPACE-GAME\Level</Filter>
     </ClInclude>
   </ItemGroup>

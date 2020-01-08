@@ -6,26 +6,24 @@ PhysicsHandler::PhysicsHandler(double gravity, int screenX, int screenY) : scree
 
 bool PhysicsHandler::elementsCollide(Element* e, Element* e2){
 	if (e != e2) {
-		int colDir = rectsCollide(e->getMovedRect(), e2->getRect());
-
-		if (colDir != 0) {
+		int colDir = rectsCollide(e->getMovedRect(), e2->getMovedRect());
+		
+		if (colDir != 0) 
 			e->onColide(e2);
-			e2->onColide(e);
-		}
-
-		if (colDir == 1) {
+		
+		if (colDir == 1) { //col from side
 			e->resetMovedRect();
 			e2->changeVectors(e->getXVector() / e2->getElasticity(), e->getYVector() * 0.5);
 			e->changeVectors(0 - e->getXVector() * e2->getElasticity(), 0 - e->getYVector() * 0.5);
 			return true;
-
 		}
-		else if (colDir == 2) {
+		else if (colDir == 2) { // col from top
 			e->resetMovedRect();
 			e2->changeVectors(e->getXVector() * 0.5, e->getYVector() / e2->getElasticity());
 			e->changeVectors(0 - e->getXVector() * 0.5, 0 - e->getYVector() * e2->getElasticity());
 			return true;
 		}
+
 	}
 	return false;
 }
@@ -50,16 +48,14 @@ void PhysicsHandler::applyGravityVector(Element* e){
 	e->changeVectors(0, gravity/30);
 }
 
+
 int PhysicsHandler::rectsCollide(const SDL_Rect* r1, const SDL_Rect* r2){
-	if (r1->x + r1->w + offset >= r2->x - offset &&
-		r2->x + r2->w + offset >= r1->x - offset &&
-		r1->y + r1->h + offset >= r2->y - offset &&
-		r2->y + r2->h + offset >= r1->y - offset)
-		if ((r1->x + r1->w <= r2->x || r2->x + r2->w <= r1->x) && 
-			(r1->y + r1->h >= r2->y || r2->y + r2->h >= r1->y))
-			return 1;
-		else
-			return 2;
+	if (r1->x + r1->w - offset >= r2->x + offset - 5 && r1->x + offset <= r2->x + r2->w - offset + 5) // within x, 5 is buffer
+		if (r1->y + r1->h - offset >= r2->y + offset && r1->y + offset <= r2->y + r2->h - offset)
+			return 1; //side
+	if (r1->y + r1->h - offset >= r2->y + offset - 5 && r1->y + offset <= r2->y + r2->h - offset + 5) // within y, 5 is buffer
+		if (r1->x + r1->w - offset >= r2->x + offset && r1->x + offset < r2->x + r2->w - offset)
+			return 2; //top
 	return 0;
 }
 

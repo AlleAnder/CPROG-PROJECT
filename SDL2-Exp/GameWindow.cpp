@@ -13,7 +13,6 @@ GameWindow::GameWindow(const char* name, int sizeX, int sizeY) {
 GameWindow::~GameWindow() {
 	SDL_DestroyRenderer(ren);
 	SDL_DestroyWindow(win);
-
 	SDL_Quit;
 }
 

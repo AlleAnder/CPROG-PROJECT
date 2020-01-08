@@ -1,5 +1,7 @@
 #pragma once
 #include "Sprite.h"
+#include <SDL_mixer.h>
+
 class PlayableEntity : public Sprite
 {
 public:
@@ -8,6 +10,14 @@ public:
 	virtual ~PlayableEntity() {};
 
 	virtual Element* shoot() { return nullptr; };
+
+	void setShotSound(Mix_Chunk* shot) { shotSound = shot; };
+	void setShotColSound(Mix_Chunk* shotCol) { shotColSound = shotCol; };
+
+protected:
+
+	Mix_Chunk* shotSound = nullptr;
+	Mix_Chunk* shotColSound = nullptr;
 
 };
 

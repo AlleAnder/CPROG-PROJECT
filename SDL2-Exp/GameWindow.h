@@ -11,6 +11,11 @@ struct GameWindow
 
 	bool SetWindow(const char* name, int sizeX, int sizeY);
 	
+	SDL_Window* getWindow() { return win; };
+	SDL_Renderer* getRenderer() { return ren; };
+	
+private:
+
 	SDL_Window* win = nullptr;
 	SDL_Renderer* ren = nullptr;
 

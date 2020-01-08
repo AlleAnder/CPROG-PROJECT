@@ -11,7 +11,6 @@ Game::~Game() {
 	background->~Background();
 	manager->~EntityManager();
 	win->~GameWindow();
-	
 }
 
 void Game::setPlayer(PlayableEntity* player){
@@ -41,13 +40,13 @@ void Game::removeLayer(Layer* lay){
 }
 
 void Game::draw() {
-	SDL_SetRenderDrawColor(win->ren, 0, 0, 0, 255);
-	SDL_RenderClear(win->ren);
+	SDL_SetRenderDrawColor(win->getRenderer(), 0, 0, 0, 255);
+	SDL_RenderClear(win->getRenderer());
 
-	background->draw(win->ren);
-	manager->updateElements(win->ren);
+	background->draw(win->getRenderer());
+	manager->updateElements(win->getRenderer());
 	
-	SDL_RenderPresent(win->ren);
+	SDL_RenderPresent(win->getRenderer());
 }
 
 void Game::run(int maxFPS) {

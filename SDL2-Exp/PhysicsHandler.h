@@ -8,7 +8,7 @@ public:
 	~PhysicsHandler() {};
 
 	void setGravity(double gravity) { this->gravity = gravity; };
-	void setHitboxOffset(int px) { offset = px; };
+	void setHitboxOffset(int px) { offset = px * -1; };
 
 	bool elementsCollide(Element* e, Element* e2);
 	bool windowElementCollide(Element* e);

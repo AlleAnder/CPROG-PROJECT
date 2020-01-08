@@ -1,5 +1,7 @@
 #pragma once
 #include "Element.h"
+#include <SDL_mixer.h>
+
 class Asteroid : public Element
 {
 public:
@@ -7,8 +9,9 @@ public:
 	~Asteroid() {};
 
 	void tick();
-
+	void onColide();
+	void setColSound(Mix_Chunk* sound) { colSound = sound; };
 
 private:
-
+	Mix_Chunk* colSound = nullptr;
 };

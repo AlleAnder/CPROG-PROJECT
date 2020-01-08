@@ -4,9 +4,6 @@
 #include <iostream>
 class Texture
 {
-	SDL_Texture* texture;
-	SDL_PixelFormat* surfFormat;
-
 public:
 
 	Texture(SDL_Renderer* ren, const char* path);
@@ -18,4 +15,8 @@ public:
 
 	void setTransparentColor(int r, int g, int b);
 
+private:
+
+	SDL_Texture* texture;
+	SDL_PixelFormat* surfFormat;
 };

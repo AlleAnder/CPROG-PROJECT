@@ -36,7 +36,6 @@ private:
 	PlayableEntity* player = NULL;
 	std::vector<Element*> elements;
 	std::vector<Layer*> bLayer, fLayer;
-
 	PhysicsHandler* physics;
 
 	bool outOfBounds(Element* e);

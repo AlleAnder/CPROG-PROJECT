@@ -1,9 +1,5 @@
 #include "Vector.h"
 
-Vector::~Vector()
-{
-}
-
 void Vector::changeVect(double x, double y){
 	vX += x;
 	vY += y;

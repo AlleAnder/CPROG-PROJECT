@@ -60,68 +60,68 @@ int main(int argc, char* argv[]) {
 	//Initializes music and such
 	initSound();
 
-	Texture star(win->getRenderer(), (path + "Images/Stars/star.png").c_str());
-	//Texture background(win.ren, (path + "Images/Stars/space.jpg").c_str());
+	Texture* star = new Texture(win->getRenderer(), (path + "Images/Stars/star.png").c_str());
 
-	Texture boostingShip(win->getRenderer(), (path + "Images/shipON.png").c_str());
-	Texture cruisingShip(win->getRenderer(), (path + "Images/shipOFF.png").c_str());
-	Texture enemyShip(win->getRenderer(), (path + "Images/enemy.png").c_str());
+	Texture* boostingShip = new Texture(win->getRenderer(), (path + "Images/shipON.png").c_str());
+	Texture* cruisingShip = new Texture(win->getRenderer(), (path + "Images/shipOFF.png").c_str());
+	Texture* enemyShip = new Texture(win->getRenderer(), (path + "Images/enemy.png").c_str());
 
-	Texture* asteroidtextures[] = { new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid1.png").c_str()),
+	Texture* asteroidtextures[] { new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid1.png").c_str()),
 									new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid2.png").c_str()) ,
 									new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid3.png").c_str()) ,
 									new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid4.png").c_str()) ,
 									new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid5.png").c_str()) };
 	
-//	back.setTexture(background.getTexture());
-	back->setColor(100,100,100,255);
-	Game game(win, physics, back);
-	game.setScrolling(true);
-	game.setHitboxOffset(-5);
+
 	
 	//CREATE PLAYER
-	Player play(screenX/2,screenY/2, 50, 70, 10, 10, collision);
-	play.setCruiseTexture(cruisingShip.getTexture());
-	play.setMovingTexture(boostingShip.getTexture());
-	play.setCollidable(true);
-	play.setMaxSpeed(6);
-	play.setShotColSound(shotCol);
-	play.setShotSound(shot);
+	Player* play = new Player(screenX/2,screenY/2, 50, 70, 10, 10, collision);
+	play->setCruiseTexture(cruisingShip->getTexture());
+	play->setMovingTexture(boostingShip->getTexture());
+	play->setCollidable(true);
+	play->setMaxSpeed(6);
+	play->setShotColSound(shotCol);
+	play->setShotSound(shot);
 	
-	
+	//CREATE GAME
+	back->setColor(100, 100, 100, 255);
+	Game game(win, physics, back, play);
+	game.setScrolling(true);
+	game.setHitboxOffset(-5);
+
 	//LAYER OF STARS IN FAR BACK
-	SALayer starLayer1 = SALayer(&play, screenX, screenY);
-	starLayer1.setMovementSpeedToPlayer(30);
+	SALayer* starLayer1 = new SALayer(play, screenX, screenY);
+	starLayer1->setMovementSpeedToPlayer(30);
 	for (int i = 0; i < 100; i++) {
 		int size = rand() % 10 + 2;
 		Element* elm = new Asteroid(rand() % screenX, rand() % screenY, size, size);
-		elm->setTexture(star.getTexture());
-		starLayer1.addElement(elm);
+		elm->setTexture(star->getTexture());
+		starLayer1->addElement(elm);
 	}
 
 	//LAYER OF STARS IN FRONT OF FAR BACK
-	SALayer starLayer2 = SALayer(&play, screenX, screenY);
-	starLayer2.setMovementSpeedToPlayer(60);
+	SALayer* starLayer2 = new SALayer(play, screenX, screenY);
+	starLayer2->setMovementSpeedToPlayer(60);
 	for (int i = 0; i < 20; i++) {
 		int size = rand() % 10 + 10;
 		Element* elm = new Asteroid(rand() % screenX, rand() % screenY, size, size);
-		elm->setTexture(star.getTexture());
-		starLayer2.addElement(elm);
+		elm->setTexture(star->getTexture());
+		starLayer2->addElement(elm);
 	}
 
 	//LAYER OF STARS CLOSEST
-	SALayer starLayer3 = SALayer(&play, screenX, screenY);
-	starLayer3.setMovementSpeedToPlayer(90);
+	SALayer* starLayer3 = new SALayer(play, screenX, screenY);
+	starLayer3->setMovementSpeedToPlayer(90);
 	for (int i = 0; i < 10; i++) {
 		int size = rand() % 20 + 10;
 		Element* elm = new Asteroid(rand() % screenX, rand() % screenY, size, size);
-		elm->setTexture(star.getTexture());
-		starLayer3.addElement(elm);
+		elm->setTexture(star->getTexture());
+		starLayer3->addElement(elm);
 	}
 	
 	//LAYER OF ASTEROIDS
-	SALayer astroidLayer = SALayer(&play, screenX, screenY);
-	astroidLayer.setMovementSpeedToPlayer(100);
+	SALayer* astroidLayer = new SALayer(play, screenX, screenY);
+	astroidLayer->setMovementSpeedToPlayer(100);
 	for (int i = 0; i <10; i++) {
 		int x = rand() % 100 + 20;
 		Asteroid* elm = new Asteroid(rand() % (screenX + 300), rand() % (screenY + 300), x,x);
@@ -129,45 +129,52 @@ int main(int argc, char* argv[]) {
 		elm->setMaxSpeed(10);
 		elm->setElasticity(50);
 		elm->setTexture(asteroidtextures[rand() % 5]->getTexture());
-		astroidLayer.addElement(elm);
+		astroidLayer->addElement(elm);
 	}
-	astroidLayer.setCollidable(true);
+	astroidLayer->setCollidable(true);
 	
 	
 	//LAYER OF ENEMIES	
-	EnemyLayer enemyLayer = EnemyLayer(&play, screenX, screenY, collision);
-	enemyLayer.setEnemyTexture(enemyShip.getTexture());
-	enemyLayer.setCollidable(true);
-	enemyLayer.waveInterval(20);
-	enemyLayer.incDiffPerWave(1);
-	enemyLayer.decreaseIntervalTime(5);
+	EnemyLayer* enemyLayer = new EnemyLayer(play, screenX, screenY, collision);
+	enemyLayer->setEnemyTexture(enemyShip->getTexture());
+	enemyLayer->setCollidable(true);
+	enemyLayer->waveInterval(20);
+	enemyLayer->incDiffPerWave(1);
+	enemyLayer->decreaseIntervalTime(5);
 	
 	//ADDING EVERYTHING TO THE GAME
-	game.addBackLayer(&starLayer1);
-	game.addBackLayer(&starLayer2);
-	game.addBackLayer(&starLayer3);
-	game.addForeLayer(&enemyLayer);
-	game.addForeLayer(&astroidLayer); 
-	game.setPlayer(&play);
-	
-	//RUN!!	
-	game.setPlayer(&play);
+	game.addBackLayer(starLayer1);
+	game.addBackLayer(starLayer2);
+	game.addBackLayer(starLayer3);
+	game.addForeLayer(enemyLayer);
+	game.addForeLayer(astroidLayer); 
+
+	//RUN!!
 	game.run(30);
+
 	game.~Game();
 
+	//Destroy all layers
+	delete starLayer1;
+	delete starLayer2;
+	delete starLayer3;
+	delete enemyLayer;
+	delete astroidLayer;
+
+	delete win;
+	delete back;
+	delete physics;
+		
 	//Destroy all textures
-	star.~Texture();
-	//background.~Texture();
-	boostingShip.~Texture();
-	cruisingShip.~Texture();
-	enemyShip.~Texture();
+	delete star;
+	delete boostingShip;
+	delete cruisingShip;
+	delete enemyShip;
 	for (int i = 0; i < sizeof(asteroidtextures) / sizeof(Texture); i++)
-		asteroidtextures[i]->~Texture();
+		delete asteroidtextures[i];
+
 	destroySound();
 
-	//TO SEE RAM USAGE AFTER EVERYTHING IS DONE
-	SDL_Delay(30000);
-	
 	return 0;
 }
 

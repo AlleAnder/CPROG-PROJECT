@@ -31,7 +31,7 @@ public:
 	double getXVector() { return vect.getVX(); }
 	double getYVector() { return vect.getVY(); }
 
-	virtual ~Element();
+	virtual ~Element() {};
 
 	const int ELEMENT_ID;
 

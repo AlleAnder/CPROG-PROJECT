@@ -21,14 +21,16 @@ protected:
 	void rndStats(int min, int max);
 	void draw(SDL_Renderer* ren);
 	
-	int health, const startingHealth, strength;
+	int health, strength;
+	const int startingHealth;
 	bool showHealth = true;
 	
 private:
 
 	void updateHealthBar();
 	void drawHealthBar(SDL_Renderer* ren);
-	SDL_Rect lifeLost, const lifeTot;
+	SDL_Rect lifeLost, lifeTot;
+
 
 	Sprite(const Sprite& c) = delete;
 	const Sprite& operator= (const Sprite& c) = delete;

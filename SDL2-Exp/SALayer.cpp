@@ -1,14 +1,6 @@
 #include "SALayer.h"
 
-
-SALayer::~SALayer()
-{
-
-}
-
-SALayer::SALayer(PlayableEntity* player, int screenX, int screenY) : Layer(player), screenX(screenX), screenY(screenY){
-
-}
+SALayer::SALayer(PlayableEntity* player, int screenX, int screenY) : Layer(player), screenX(screenX), screenY(screenY){}
 
 void SALayer::outOfBoundsCorrect(Element* e) {
 	bool moved = false;

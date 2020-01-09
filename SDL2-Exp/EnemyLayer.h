@@ -6,7 +6,6 @@ class EnemyLayer : public Layer
 {
 public:
 	EnemyLayer(PlayableEntity* player, int screenX, int screenY, Mix_Chunk * col);
-	~EnemyLayer() { };
 
 	void tickLayer();
 

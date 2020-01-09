@@ -2,14 +2,10 @@
 
 
 Element::Element(int x, int y, int w, int h, int ELEMENT_ID) : ELEMENT_ID(ELEMENT_ID) {
-	SDL_Rect rect = { x, y, w, h };
+	SDL_Rect rect{ x, y, w, h };
 	this->rect = rect;
 	this->movedRect = rect;
 
-}
-
-Element::~Element() {
-	vect.~Vector();
 }
 
 void Element::draw(SDL_Renderer* ren) {

@@ -1,29 +1,20 @@
 #include "EntityManager.h"
 
 EntityManager::~EntityManager() {
-	for (std::vector<Element*>::iterator it = elements.begin(); it != elements.end();) { //Player variable gets deleted here as it is part of element vector
-		//delete* it;
+	for (std::vector<Element*>::iterator it = elements.begin(); it != elements.end();) 
 		it = elements.erase(it);
-	}
 	elements.clear();
 
-	for (std::vector<Layer*>::iterator it = bLayer.begin(); it != bLayer.end();) {
-		//(*it)->~Layer();
+	for (std::vector<Layer*>::iterator it = bLayer.begin(); it != bLayer.end();) 
 		it = bLayer.erase(it);
-	}
 	bLayer.clear();
 
-	for (std::vector<Layer*>::iterator it = fLayer.begin(); it != fLayer.end();) {
-	//	(*it)->~Layer();
+	for (std::vector<Layer*>::iterator it = fLayer.begin(); it != fLayer.end();) 
 		it = fLayer.erase(it);
-	}
 	fLayer.clear();
-	delete physics;
 }
 
-EntityManager::EntityManager(PhysicsHandler* physics) {
-	this->physics = physics; 
-
+EntityManager::EntityManager(PhysicsHandler* physics) : physics(physics){
 	screenX = physics->screenX;
 	screenY = physics->screenY;
 }
@@ -146,7 +137,7 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 		//THIS IS FOR LAYER COLLISION WHICH DOESNT WORK PROPPERLY yet :(
 			for (Layer* l : fLayer) {
 				if (l->isCollidable()) {
-					for (Element* e2 : l->elements) {
+					for (Element* e2 : *(l->getElements())) {
 						if (physics->elementsCollide((*it), e2) && physics->elementsCollide(e2, (*it)))
 							colFound = true;
 					}
@@ -182,10 +173,10 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 	}
 	
 	for (Layer* l : fLayer) {
-		for (Element* e1 : l->elements) { //Handles colisions within a flayer
+		for (Element* e1 : *(l->getElements())) { //Handles colisions within a flayer
 			physics->applyGravityVector(e1);
 			colFound = false;
-			for (Element* e2 : l->elements) {
+			for (Element* e2 : *(l->getElements())) {
 				if (colFound)
 					break;
 				if (physics->elementsCollide(e1, e2))
@@ -194,9 +185,9 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 		}
 
 		for (Layer* l2 : fLayer) { //Handles collisions between layers
-			for (Element* e1 : l->elements) {
+			for (Element* e1 : *(l->getElements())) {
 				colFound = false;
-				for (Element* e2 : l2->elements) {
+				for (Element* e2 : *(l2->getElements())) {
 					if (colFound)
 						break;
 					if (physics->elementsCollide(e1, e2))

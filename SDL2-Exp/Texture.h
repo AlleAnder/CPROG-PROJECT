@@ -18,5 +18,5 @@ public:
 private:
 
 	SDL_Texture* texture;
-	SDL_PixelFormat* surfFormat;
+	SDL_PixelFormat surfFormat;
 };

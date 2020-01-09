@@ -1,42 +1,28 @@
 #include "Game.h"
 
 
-Game::Game(GameWindow* win, PhysicsHandler* physics, Background* background) {
-	this->win = win;
-	manager = new EntityManager(physics);
-	this->background = background;
-}
-
-Game::~Game() {
-	background->~Background();
-	manager->~EntityManager();
-	win->~GameWindow();
-}
-
-void Game::setPlayer(PlayableEntity* player){
-	manager->setPlayer(player);
-	this->player = player;
-	
+Game::Game(GameWindow* win, PhysicsHandler* physics, Background* background, PlayableEntity* player) : win(win), background(background), manager((physics)), player(player){
+	manager.setPlayer(player);
 }
 
 void Game::addElement(Element* elm){
-	manager->addElement(elm);
+	manager.addElement(elm);
 }
 
 void Game::removeElement(Element* elm){
-	manager->removeElement(elm);
+	manager.removeElement(elm);
 }
 
 void Game::addForeLayer(Layer* lay){
-	manager->addForeLayer(lay);
+	manager.addForeLayer(lay);
 }
 
 void Game::addBackLayer(Layer* lay) {
-	manager->addBackLayer(lay);
+	manager.addBackLayer(lay);
 }
 
 void Game::removeLayer(Layer* lay){
-	manager->removeLayer(lay);
+	manager.removeLayer(lay);
 }
 
 void Game::draw() {
@@ -44,7 +30,7 @@ void Game::draw() {
 	SDL_RenderClear(win->getRenderer());
 
 	background->draw(win->getRenderer());
-	manager->updateElements(win->getRenderer());
+	manager.updateElements(win->getRenderer());
 	
 	SDL_RenderPresent(win->getRenderer());
 }
@@ -65,7 +51,7 @@ void Game::run(int maxFPS) {
 				run = false; 
 				break;
 			default:
-				manager->triggerEvent(event);
+				manager.triggerEvent(event);
 			}
 			
 		}

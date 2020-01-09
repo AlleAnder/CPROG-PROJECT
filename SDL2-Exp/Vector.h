@@ -12,7 +12,6 @@ public:
 
 	Vector() { Vector(0, 0); };
 	Vector(double vX, double vY) : vY(vY), vX(vX){};
-	~Vector();
 
 	int getVY() { return vY; };
 	int getVX() { return vX; };
@@ -23,7 +22,6 @@ public:
 	int getMaxSpeed() { return maxSpeed; };
 	SDL_Point* getDirVectors();	
 	SDL_Point* getDirVectors(int deg, int sizeOfVector);
-
 
 private:
 

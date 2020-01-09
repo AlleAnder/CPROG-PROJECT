@@ -23,14 +23,14 @@ public:
 
 	void setCollidable(bool col);
 
-	std::vector<Element*> elements; //Does it make a difference wether this is public or private? Due to vect of pointers.
+	std::vector<Element*>* getElements() { return &elements; };
 
 	bool isCollidable() { return collidable; };
 
 protected:
-
+	std::vector<Element*> elements;
 	double movementSpeed = 1;
-	PlayableEntity* player; // USELESS???????????????
+	PlayableEntity* player;
 
 private:
 

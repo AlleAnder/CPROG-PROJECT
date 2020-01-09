@@ -5,7 +5,6 @@ class EnemyEntity : public Sprite
 {
 public:
 
-	
 	virtual ~EnemyEntity() {};
 
 	virtual bool setTarget(Element* target) { this->target = target; return true; };
@@ -25,5 +24,10 @@ protected:
 	Element* target = nullptr;
 
 	int ticks = 0;
+
+private:
+
+	EnemyEntity(const EnemyEntity& c) = delete;
+	const EnemyEntity& operator= (const EnemyEntity& c) = delete;
 };
 

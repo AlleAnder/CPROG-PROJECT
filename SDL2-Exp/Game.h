@@ -13,27 +13,26 @@ class Game{
 
 public:
 
-	Game(GameWindow* win, PhysicsHandler* physics, Background* background);
-	~Game();
+	Game(GameWindow* win, PhysicsHandler* physics, Background* background, PlayableEntity* player);
+
 
 	void run(int maxFPS);
 
-	void setPlayer(PlayableEntity* player);
-	void setHitboxOffset(int px) { manager->setHitboxOffset(px); };
+	
+	void setHitboxOffset(int px) { manager.setHitboxOffset(px); };
 	void addElement(Element* elm);
 	void removeElement(Element* elm);
-
 
 	void addBackLayer(Layer* lay);
 	void addForeLayer(Layer* lay);
 	void removeLayer(Layer* lay);
 
-	void setScrolling(bool scrolling) { manager->setScrolling(scrolling); };
+	void setScrolling(bool scrolling) { manager.setScrolling(scrolling); };
 
 private:
 
 	GameWindow* win;
-	EntityManager* manager;
+	EntityManager manager;
 	Background* background;
 	void draw();
 	PlayableEntity* player = nullptr;

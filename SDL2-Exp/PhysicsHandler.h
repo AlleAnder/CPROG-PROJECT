@@ -5,7 +5,7 @@ class PhysicsHandler
 {
 public:
 	PhysicsHandler(double gravity, int screenX, int screenY);
-	~PhysicsHandler() {};
+	
 
 	void setGravity(double gravity) { this->gravity = gravity; };
 	void setHitboxOffset(int px) { offset = px * -1; };

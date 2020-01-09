@@ -45,9 +45,9 @@ void Player::moveTDir(int dir){
 
 void Player::calculateShotSpawnDistance(){
 	if (rect.w >= rect.h)
-		shotSpawnDistance = rect.w / 2 + 10;
+		shotSpawnDistance = rect.w / 2;
 	else
-		shotSpawnDistance = rect.h / 2 + 10;
+		shotSpawnDistance = rect.h / 2;
 }
 
 
@@ -57,7 +57,7 @@ void Player::keyUp(SDL_Keycode kc)
 
 	switch (kc) {
 	case SDLK_SPACE:
-		shootable = true;
+		shooting = true;
 		Mix_PlayChannel(-1, shotSound, 0);
 		break;
 	}
@@ -75,14 +75,14 @@ void Player::onColide(Element* e)
 
 
 void Player::tick(){
-	rotation = vect.dirTravel;
+	rotation = vect.dirOTravel();
 }
 
 Element* Player::shoot()
 {
-	if (shootable) {
+	if (shooting) {
 
-		SDL_Point* dirVec = vect.getDirVectors(vect.dirTravel, shotSpawnDistance);
+		SDL_Point* dirVec = vect.getDirVectors(vect.dirOTravel(), shotSpawnDistance);
 		Asteroid* bullet = new Asteroid((rect.x + rect.w / 2) + dirVec->x, (rect.y + rect.h / 2) + dirVec->y, 5, 5);
 		bullet->setMaxSpeed(20);
 		bullet->changeVectors(dirVec->x * 1000.0, dirVec->y * 1000.0);
@@ -91,7 +91,7 @@ Element* Player::shoot()
 		bullet->setColSound(shotColSound);
 		bullet->setColor(255, 255, 255, 255);
 		bullet->setCollidable(true);
-		shootable = false;
+		shooting = false;
 		return bullet;
 	}
 	else return nullptr;

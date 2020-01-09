@@ -42,7 +42,7 @@ void Element::setElasticity(double elasticity){
 
 void Element::changeVectors(double x, double y){
 	vect.changeVect(x,y);
-	moveFromCurrent(vect.vX, vect.vY);
+	moveFromCurrent(vect.getVX(), vect.getVY());
 }
 
 void Element::moveFromCurrent(int x, int y) {

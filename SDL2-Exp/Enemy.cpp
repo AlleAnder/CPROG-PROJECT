@@ -2,7 +2,7 @@
 
 void Enemy::update()
 {
-	rotation = vect.dirTravel;
+	rotation = vect.dirOTravel();
 }
 
 void Enemy::onColide(Element* colWith){

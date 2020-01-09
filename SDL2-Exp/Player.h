@@ -19,7 +19,8 @@ public:
 	void tick();
 
 	Element* shoot();
-	bool shootable = false;
+
+	//bool isShooting() { return shooting; };
 
 	void setMovingTexture(SDL_Texture* texture) { boost = texture; };
 	void setCruiseTexture(SDL_Texture* texture) { cruise = texture; this->texture = cruise; };
@@ -29,6 +30,8 @@ public:
 private:
 	void moveTDir(int dir); //NOT YET IMPLEMENTED
 	void calculateShotSpawnDistance();
+
+	bool shooting = false;
 
 	Mix_Chunk* colSound;
 	SDL_Texture* boost = nullptr;

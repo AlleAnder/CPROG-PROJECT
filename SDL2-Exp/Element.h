@@ -28,8 +28,8 @@ public:
 	void resetMovedRect() { movedRect = rect; }
 
 	void changeVectors(double x, double y);
-	double getXVector() { return vect.vX; }
-	double getYVector() { return vect.vY; }
+	double getXVector() { return vect.getVX(); }
+	double getYVector() { return vect.getVY(); }
 
 	virtual ~Element();
 

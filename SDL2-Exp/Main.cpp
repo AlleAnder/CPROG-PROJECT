@@ -98,8 +98,6 @@ int main(int argc, char* argv[]) {
 		elm->setTexture(star.getTexture());
 		starLayer1.addElement(elm);
 	}
-	play.shootable = true;
-	
 
 	//LAYER OF STARS IN FRONT OF FAR BACK
 	SALayer starLayer2 = SALayer(&play, screenX, screenY);

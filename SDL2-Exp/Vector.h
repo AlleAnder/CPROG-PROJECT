@@ -14,16 +14,20 @@ public:
 	Vector(double vX, double vY) : vY(vY), vX(vX){};
 	~Vector();
 
-	double vX, vY, dirTravel = 0;
-	
+	int getVY() { return vY; };
+	int getVX() { return vX; };
+	int dirOTravel() { return dirTravel; };
+
 	void changeVect(double x, double y);
-	void setMax(int maxSpeed) { this->maxSpeed = maxSpeed; }
+	void setMax(int maxSpeed) { this->maxSpeed = maxSpeed; };
 	int getMaxSpeed() { return maxSpeed; };
 	SDL_Point* getDirVectors();	
 	SDL_Point* getDirVectors(int deg, int sizeOfVector);
 
 
 private:
+
+	double vX, vY, dirTravel = 0;
 
 	int maxSpeed = 0;
 	void setDirTravel(double x, double y);

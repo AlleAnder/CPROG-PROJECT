@@ -86,13 +86,12 @@ Element* Player::shoot()
 	if (shooting) {
 
 		SDL_Point* dirVec = vect.getDirVectors(rotation, shotSpawnDistance);
-		Asteroid* bullet = new Asteroid((rect.x + rect.w / 2) + dirVec->x - 10, (rect.y + rect.h / 2) + dirVec->y - 10, 5, 10);
+		Bullet* bullet = new Bullet((rect.x + rect.w / 2) + dirVec->x - 10, (rect.y + rect.h / 2) + dirVec->y - 10, 10, 20);
 		bullet->setMaxSpeed(20);
 		bullet->changeVectors(dirVec->x , dirVec->y);
 		delete dirVec;
 
-	
-
+		bullet->setTexture(laser);
 		bullet->setColSound(shotColSound);
 		bullet->setColor(255, 0, 255, 255);
 		bullet->setCollidable(true);

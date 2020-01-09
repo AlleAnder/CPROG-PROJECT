@@ -59,6 +59,7 @@ Enemy* EnemyLayer::makeEnemy(){
 	SDL_Point point = *getOutOfWinCords();
 
 	Enemy* enemy = new Enemy(point.x, point.y, enemySize, enemySize, 10, 1, collisionSound);
+	enemy->setDeathSound(deathSound);
 	enemy->setCollidable(true);
 	enemy->setMaxSpeed(3);
 	enemy->setTarget(player);

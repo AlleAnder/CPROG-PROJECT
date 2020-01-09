@@ -158,9 +158,10 @@ void EntityManager::updateElements(SDL_Renderer* ren) {
 			player->resetMovedRect();
 
 		//if (!colFound)
+		(*it)->tick();
 		(*it)->setMovedRect();
 		(*it)->draw(ren);
-		(*it)->tick();
+		
 
 		if ((*it) != player && (outOfBounds((*it)) || (*it)->isDead())) {
 			delete* it;

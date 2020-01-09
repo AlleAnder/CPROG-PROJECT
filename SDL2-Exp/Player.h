@@ -1,6 +1,6 @@
 #pragma once
 #include "PlayableEntity.h"
-#include "Asteroid.h"
+#include "Bullet.h"
 #include "Texture.h"
 
 
@@ -28,8 +28,10 @@ public:
 
 	void setShotSound(Mix_Chunk* shot) { shotSound = shot; };
 	void setShotColSound(Mix_Chunk* shotCol) { shotColSound = shotCol; };
+	void setShotTexture(SDL_Texture* texture) { laser = texture; };
 
 private:
+
 
 	Mix_Chunk* shotSound = nullptr;
 	Mix_Chunk* shotColSound = nullptr;
@@ -42,6 +44,7 @@ private:
 	Mix_Chunk* colSound;
 	SDL_Texture* boost = nullptr;
 	SDL_Texture* cruise = nullptr;
+	SDL_Texture* laser = nullptr;
 
 	int shotSpawnDistance = 0;
 };

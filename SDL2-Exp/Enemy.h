@@ -8,9 +8,11 @@ public:
 
 	void update();
 	void onColide(Element* colWith);
+	void setDeathSound(Mix_Chunk* death) { this->death = death; };
 
 private:
 
+	Mix_Chunk* death;
 	Mix_Chunk* collision;
 };
 

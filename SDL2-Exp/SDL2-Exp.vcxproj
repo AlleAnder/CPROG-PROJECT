@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Element.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyEntity.cpp" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="Asteroid.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Element.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyEntity.h" />

@@ -4,8 +4,8 @@ void Asteroid::tick(){
 	rotation = vect.dirOTravel();
 }
 
-void Asteroid::onColide(){
-	Mix_PlayChannel(-1, colSound, 0);
+void Asteroid::onColide(Element* e){
+
 }
 
 

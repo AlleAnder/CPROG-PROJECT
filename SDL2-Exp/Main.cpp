@@ -17,21 +17,23 @@
 #include "EnemyLayer.h"
 #include "Background.h"
 
-//ELM IDS: player = 1, enemy = 2, asteroid = 3
+//ELM IDS: player = 1, enemy = 2, asteroid = 3, bullet = 4
 
-const int screenX = 2000, screenY = 1000;
+const int screenX = 1000, screenY = 700;
 const std::string path = "C:/Users/savva/source/repos/CPROG-PROJECT/SDL2-Exp/";
 
 Mix_Chunk* bgm; 
 Mix_Chunk* collision; 
 Mix_Chunk* shot;
 Mix_Chunk* shotCol;
+Mix_Chunk* death;
 
 void initSound() {
 	if (Mix_OpenAudio(44100, AUDIO_S16SYS, 6, 8192) < 0)
 		std::cerr << "Error loading mixer: " << Mix_GetError() << "\n";
 
 	bgm = Mix_LoadWAV((path + "Sounds/zong.wav").c_str());
+	death = Mix_LoadWAV((path + "Sounds/death.wav").c_str());
 	shot = Mix_LoadWAV((path + "Sounds/shot.wav").c_str());
 	shotCol = Mix_LoadWAV((path + "Sounds/shotCol.wav").c_str());
 	collision = Mix_LoadWAV((path + "Sounds/collision.mp3").c_str());
@@ -40,6 +42,7 @@ void initSound() {
 		std::cerr << "Could not load audio";
 	else {
 		bgm->volume = 30;
+		death->volume = 20;
 		Mix_PlayChannel(-1, bgm, -1);
 	}
 }
@@ -48,6 +51,7 @@ void destroySound() {
 	Mix_FreeChunk(bgm);
 	Mix_FreeChunk(shot);
 	Mix_FreeChunk(shotCol);
+	Mix_FreeChunk(death);
 	Mix_FreeChunk(collision);
 	Mix_CloseAudio();
 }
@@ -61,7 +65,7 @@ int main(int argc, char* argv[]) {
 	initSound();
 
 	Texture* star = new Texture(win->getRenderer(), (path + "Images/Stars/star.png").c_str());
-
+	Texture* laser = new Texture(win->getRenderer(), (path + "Images/laser.png").c_str());
 	Texture* boostingShip = new Texture(win->getRenderer(), (path + "Images/shipON.png").c_str());
 	Texture* cruisingShip = new Texture(win->getRenderer(), (path + "Images/shipOFF.png").c_str());
 	Texture* enemyShip = new Texture(win->getRenderer(), (path + "Images/enemy.png").c_str());
@@ -75,13 +79,15 @@ int main(int argc, char* argv[]) {
 
 	
 	//CREATE PLAYER
-	Player* play = new Player(screenX/2,screenY/2, 50, 70, 10, 10, collision);
+	Player* play = new Player(screenX/2,screenY/2, 50, 70,50, 10, collision);
 	play->setCruiseTexture(cruisingShip->getTexture());
 	play->setMovingTexture(boostingShip->getTexture());
 	play->setCollidable(true);
 	play->setMaxSpeed(6);
+
 	play->setShotColSound(shotCol);
 	play->setShotSound(shot);
+	play->setShotTexture(laser->getTexture());
 	
 	//CREATE GAME
 	Game game(win, physics, back, play);
@@ -121,7 +127,7 @@ int main(int argc, char* argv[]) {
 	//LAYER OF ASTEROIDS
 	SALayer* astroidLayer = new SALayer(play, screenX, screenY);
 	astroidLayer->setMovementSpeedToPlayer(100);
-	for (int i = 0; i <20; i++) {
+	for (int i = 0; i <10; i++) {
 		int x = rand() % 100 + 20;
 		Asteroid* elm = new Asteroid(rand() % (screenX + 300), rand() % (screenY + 300), x,x);
 		elm->setColSound(shotCol);
@@ -140,6 +146,7 @@ int main(int argc, char* argv[]) {
 	enemyLayer->waveInterval(20);
 	enemyLayer->incDiffPerWave(1);
 	enemyLayer->decreaseIntervalTime(5);
+	enemyLayer->setEnemyDeathSound(death);
 	
 	//ADDING EVERYTHING TO THE GAME
 	game.addBackLayer(starLayer1);
@@ -168,6 +175,7 @@ int main(int argc, char* argv[]) {
 	delete star;
 	delete boostingShip;
 	delete cruisingShip;
+	delete laser;
 	delete enemyShip;
 	for (int i = 0; i < sizeof(asteroidtextures) / sizeof(Texture); i++)
 		delete asteroidtextures[i];

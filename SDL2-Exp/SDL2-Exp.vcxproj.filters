@@ -117,6 +117,9 @@
     <ClCompile Include="Background.cpp">
       <Filter>Source Files\ZPACE-GAME\Level</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Source Files\ZPACE-GAME\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameWindow.h">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="Background.h">
       <Filter>Header Files\ZPACE-GAME\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Header Files\ZPACE-GAME\Elements</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

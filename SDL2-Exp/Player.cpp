@@ -7,34 +7,37 @@ Player::Player(int x, int y, int w, int h, int health, int strength, Mix_Chunk* 
 
 void Player::keyDown(SDL_Keycode kc)
 {
+	SDL_Point* dirVec = vect.getDirVectors(rotation, 1000);
 	bool moved = false;
 	switch (kc) {
 
 
 	case SDLK_w:
-		this->changeVectors(0, -0.5);
+		
+		this->changeVectors(dirVec->x/1000.0, dirVec->y / 1000.0);
 		moved = true;
 		texture = boost;
 		break;
 	case SDLK_a:
-		//rotation-= 7;
-		this->changeVectors(-0.5, 0);
+		rotation-= 10;
+		//this->changeVectors(-0.5, 0);
 		moved = true;
-		texture = boost;
+		//texture = boost;
 		break;
 	case SDLK_s:
-		this->changeVectors(0, 0.5);
+		this->changeVectors(-dirVec->x / 1000.0, -dirVec->y / 1000.0);
 		moved = true;
 		texture = boost;
 		break;
 	case SDLK_d:
-		//rotation+= 7;
-		this->changeVectors(0.5, 0);
+		rotation+= 10;
+		//this->changeVectors(0.5, 0);
 		moved = true;
-		texture = boost;
+	//	texture = boost;
 		break;
 	}
 
+	delete dirVec;
 	//std::cout << vect.dirTravel << "\n";
 }
 
@@ -75,21 +78,23 @@ void Player::onColide(Element* e)
 
 
 void Player::tick(){
-	rotation = vect.dirOTravel();
+//	rotation = vect.dirOTravel();
 }
 
 Element* Player::shoot()
 {
 	if (shooting) {
 
-		SDL_Point* dirVec = vect.getDirVectors(vect.dirOTravel(), shotSpawnDistance);
-		Asteroid* bullet = new Asteroid((rect.x + rect.w / 2) + dirVec->x, (rect.y + rect.h / 2) + dirVec->y, 5, 5);
+		SDL_Point* dirVec = vect.getDirVectors(rotation, shotSpawnDistance);
+		Asteroid* bullet = new Asteroid((rect.x + rect.w / 2) + dirVec->x - 10, (rect.y + rect.h / 2) + dirVec->y - 10, 5, 10);
 		bullet->setMaxSpeed(20);
-		bullet->changeVectors(dirVec->x * 1000.0, dirVec->y * 1000.0);
+		bullet->changeVectors(dirVec->x , dirVec->y);
 		delete dirVec;
 
+	
+
 		bullet->setColSound(shotColSound);
-		bullet->setColor(255, 255, 255, 255);
+		bullet->setColor(255, 0, 255, 255);
 		bullet->setCollidable(true);
 		shooting = false;
 		return bullet;

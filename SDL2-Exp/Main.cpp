@@ -19,7 +19,7 @@
 
 //ELM IDS: player = 1, enemy = 2, asteroid = 3
 
-const int screenX = 1000, screenY = 700;
+const int screenX = 2000, screenY = 1000;
 const std::string path = "C:/Users/savva/source/repos/CPROG-PROJECT/SDL2-Exp/";
 
 Mix_Chunk* bgm; 
@@ -39,7 +39,7 @@ void initSound() {
 	if(bgm == nullptr || collision == nullptr || shot == nullptr || shotCol == nullptr)
 		std::cerr << "Could not load audio";
 	else {
-		//bgm->volume = 30;
+		bgm->volume = 30;
 		Mix_PlayChannel(-1, bgm, -1);
 	}
 }
@@ -84,7 +84,6 @@ int main(int argc, char* argv[]) {
 	play->setShotSound(shot);
 	
 	//CREATE GAME
-	back->setColor(100, 100, 100, 255);
 	Game game(win, physics, back, play);
 	game.setScrolling(true);
 	game.setHitboxOffset(-5);
@@ -122,7 +121,7 @@ int main(int argc, char* argv[]) {
 	//LAYER OF ASTEROIDS
 	SALayer* astroidLayer = new SALayer(play, screenX, screenY);
 	astroidLayer->setMovementSpeedToPlayer(100);
-	for (int i = 0; i <10; i++) {
+	for (int i = 0; i <20; i++) {
 		int x = rand() % 100 + 20;
 		Asteroid* elm = new Asteroid(rand() % (screenX + 300), rand() % (screenY + 300), x,x);
 		elm->setColSound(shotCol);

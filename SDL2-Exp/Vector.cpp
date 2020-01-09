@@ -18,15 +18,12 @@ void Vector::changeVect(double x, double y){
 }
 
 SDL_Point* Vector::getDirVectors(){
-	return getDirVectors(dirTravel, 1);
+	return getDirVectors(dirTravel, 1.0);
 }
 
-SDL_Point* Vector::getDirVectors(int deg, int sizeOfVector){
-
-	int degOffset = 0;
-
+SDL_Point* Vector::getDirVectors(int deg, double sizeOfVector){
+	deg -= 90;
 	SDL_Point* vect = new SDL_Point{ (int)(cos(deg * PI / 180) * sizeOfVector), (int)(sin(deg * PI / 180) * sizeOfVector) };
-
 	return vect;
 }
 

@@ -21,7 +21,7 @@ public:
 	void setMax(int maxSpeed) { this->maxSpeed = maxSpeed; };
 	int getMaxSpeed() { return maxSpeed; };
 	SDL_Point* getDirVectors();	
-	SDL_Point* getDirVectors(int deg, int sizeOfVector);
+	SDL_Point* getDirVectors(int deg, double sizeOfVector);
 
 private:
 

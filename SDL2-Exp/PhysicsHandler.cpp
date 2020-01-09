@@ -7,9 +7,11 @@ PhysicsHandler::PhysicsHandler(double gravity, int screenX, int screenY) : scree
 bool PhysicsHandler::elementsCollide(Element* e, Element* e2){
 	if (e != e2) {
 		int colDir = rectsCollide(e->getMovedRect(), e2->getMovedRect());
-		
-		if (colDir != 0) 
-			e->onColide(e2);
+
+		if (colDir != 0) {
+		e->onColide(e2);
+		e2->onColide(e);
+		}
 		
 		if (colDir == 1) { //col from side
 			e->resetMovedRect();

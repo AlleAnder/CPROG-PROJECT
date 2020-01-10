@@ -68,11 +68,13 @@ void Player::keyUp(SDL_Keycode kc)
 
 void Player::onColide(Element* e)
 {
-	health -= 1;
-	Mix_PlayChannel(-1, colSound, 0);
+	if (e->ELEMENT_ID != 4) {
+		health -= 1;
+		Mix_PlayChannel(-1, colSound, 0);
 
-	if (health <= 0)
-		dead = true;
+		if (health <= 0)
+			dead = true;
+	}
 }
 
 

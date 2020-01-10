@@ -1,17 +1,25 @@
 #include "EntityManager.h"
 
 EntityManager::~EntityManager() {
-	for (std::vector<Element*>::iterator it = elements.begin(); it != elements.end();) 
+	for (std::vector<Element*>::iterator it = elements.begin(); it != elements.end();) {
+		delete* it;
 		it = elements.erase(it);
+	}
 	elements.clear();
 
-	for (std::vector<Layer*>::iterator it = bLayer.begin(); it != bLayer.end();) 
+	for (std::vector<Layer*>::iterator it = bLayer.begin(); it != bLayer.end();) {
+		delete* it;
 		it = bLayer.erase(it);
+	}
 	bLayer.clear();
 
-	for (std::vector<Layer*>::iterator it = fLayer.begin(); it != fLayer.end();) 
+	for (std::vector<Layer*>::iterator it = fLayer.begin(); it != fLayer.end();) {
+		delete* it;
 		it = fLayer.erase(it);
+	}
 	fLayer.clear();
+
+	delete physics;
 }
 
 EntityManager::EntityManager(PhysicsHandler* physics) : physics(physics){

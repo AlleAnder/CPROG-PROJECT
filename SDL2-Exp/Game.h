@@ -15,6 +15,7 @@ public:
 
 	Game(GameWindow* win, PhysicsHandler* physics, Background* background, PlayableEntity* player);
 
+	~Game() {	delete win;	delete background; }
 
 	void run(int maxFPS);
 

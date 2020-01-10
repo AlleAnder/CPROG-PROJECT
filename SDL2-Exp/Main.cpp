@@ -16,11 +16,12 @@
 #include "SALayer.h"
 #include "EnemyLayer.h"
 #include "Background.h"
+#include <direct.h>
 
 //ELM IDS: player = 1, enemy = 2, asteroid = 3, bullet = 4
 
-const int screenX = 1000, screenY = 700;
-const std::string path = "C:/Users/savva/source/repos/CPROG-PROJECT/SDL2-Exp/";
+const int screenX = 2000, screenY = 1200;
+const std::string path = _getcwd(NULL, 0);
 
 Mix_Chunk* bgm; 
 Mix_Chunk* collision; 
@@ -32,11 +33,11 @@ void initSound() {
 	if (Mix_OpenAudio(44100, AUDIO_S16SYS, 6, 8192) < 0)
 		std::cerr << "Error loading mixer: " << Mix_GetError() << "\n";
 
-	bgm = Mix_LoadWAV((path + "Sounds/zong.wav").c_str());
-	death = Mix_LoadWAV((path + "Sounds/death.wav").c_str());
-	shot = Mix_LoadWAV((path + "Sounds/shot.wav").c_str());
-	shotCol = Mix_LoadWAV((path + "Sounds/shotCol.wav").c_str());
-	collision = Mix_LoadWAV((path + "Sounds/collision.mp3").c_str());
+	bgm = Mix_LoadWAV((path + "/Sounds/zong.wav").c_str());
+	death = Mix_LoadWAV((path + "/Sounds/death.wav").c_str());
+	shot = Mix_LoadWAV((path + "/Sounds/shot.wav").c_str());
+	shotCol = Mix_LoadWAV((path + "/Sounds/shotCol.wav").c_str());
+	collision = Mix_LoadWAV((path + "/Sounds/collision.mp3").c_str());
 
 	if(bgm == nullptr || collision == nullptr || shot == nullptr || shotCol == nullptr)
 		std::cerr << "Could not load audio";
@@ -64,17 +65,17 @@ int main(int argc, char* argv[]) {
 	//Initializes music and such
 	initSound();
 
-	Texture* star = new Texture(win->getRenderer(), (path + "Images/Stars/star.png").c_str());
-	Texture* laser = new Texture(win->getRenderer(), (path + "Images/laser.png").c_str());
-	Texture* boostingShip = new Texture(win->getRenderer(), (path + "Images/shipON.png").c_str());
-	Texture* cruisingShip = new Texture(win->getRenderer(), (path + "Images/shipOFF.png").c_str());
-	Texture* enemyShip = new Texture(win->getRenderer(), (path + "Images/enemy.png").c_str());
+	Texture* star = new Texture(win->getRenderer(), (path + "/Images/Stars/star.png").c_str());
+	Texture* laser = new Texture(win->getRenderer(), (path + "/Images/laser.png").c_str());
+	Texture* boostingShip = new Texture(win->getRenderer(), (path + "/Images/shipON.png").c_str());
+	Texture* cruisingShip = new Texture(win->getRenderer(), (path + "/Images/shipOFF.png").c_str());
+	Texture* enemyShip = new Texture(win->getRenderer(), (path + "/Images/enemy.png").c_str());
 
-	Texture* asteroidtextures[] { new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid1.png").c_str()),
-									new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid2.png").c_str()) ,
-									new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid3.png").c_str()) ,
-									new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid4.png").c_str()) ,
-									new Texture(win->getRenderer(), (path + "Images/Asteroids/asteroid5.png").c_str()) };
+	Texture* asteroidtextures[] { new Texture(win->getRenderer(), (path + "/Images/Asteroids/asteroid1.png").c_str()),
+									new Texture(win->getRenderer(), (path + "/Images/Asteroids/asteroid2.png").c_str()) ,
+									new Texture(win->getRenderer(), (path + "/Images/Asteroids/asteroid3.png").c_str()) ,
+									new Texture(win->getRenderer(), (path + "/Images/Asteroids/asteroid4.png").c_str()) ,
+									new Texture(win->getRenderer(), (path + "/Images/Asteroids/asteroid5.png").c_str()) };
 	
 
 	
@@ -90,9 +91,9 @@ int main(int argc, char* argv[]) {
 	play->setShotTexture(laser->getTexture());
 	
 	//CREATE GAME
-	Game game(win, physics, back, play);
-	game.setScrolling(true);
-	game.setHitboxOffset(-5);
+	Game* game = new Game(win, physics, back, play);
+	game->setScrolling(true);
+	game->setHitboxOffset(-5);
 
 	//LAYER OF STARS IN FAR BACK
 	SALayer* starLayer1 = new SALayer(play, screenX, screenY);
@@ -127,7 +128,7 @@ int main(int argc, char* argv[]) {
 	//LAYER OF ASTEROIDS
 	SALayer* astroidLayer = new SALayer(play, screenX, screenY);
 	astroidLayer->setMovementSpeedToPlayer(100);
-	for (int i = 0; i <10; i++) {
+	for (int i = 0; i <20; i++) {
 		int x = rand() % 100 + 20;
 		Asteroid* elm = new Asteroid(rand() % (screenX + 300), rand() % (screenY + 300), x,x);
 		elm->setColSound(shotCol);
@@ -149,28 +150,16 @@ int main(int argc, char* argv[]) {
 	enemyLayer->setEnemyDeathSound(death);
 	
 	//ADDING EVERYTHING TO THE GAME
-	game.addBackLayer(starLayer1);
-	game.addBackLayer(starLayer2);
-	game.addBackLayer(starLayer3);
-	game.addForeLayer(enemyLayer);
-	game.addForeLayer(astroidLayer); 
+	game->addBackLayer(starLayer1);
+	game->addBackLayer(starLayer2);
+	game->addBackLayer(starLayer3);
+	game->addForeLayer(enemyLayer);
+	game->addForeLayer(astroidLayer);
 
 	//RUN!!
-	game.run(30);
+	game->run(30);
+	delete game;
 
-	game.~Game();
-
-	//Destroy all layers
-	delete starLayer1;
-	delete starLayer2;
-	delete starLayer3;
-	delete enemyLayer;
-	delete astroidLayer;
-
-	delete win;
-	delete back;
-	delete physics;
-		
 	//Destroy all textures
 	delete star;
 	delete boostingShip;
